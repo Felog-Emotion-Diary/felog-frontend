@@ -1,9 +1,15 @@
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { BetweenFlexbox, Button, Form, Input, InputFlexbox, PageMove, RowFlexbox, Title } from "./signIn_Up.styles";
 import { overlayStore } from "../../store/signInStore";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const setIsLogin = overlayStore((state) => state.setIsLogin);
+  const navigate = useNavigate();
+
+  const goToCheckEmail = () => {
+    navigate("/check-email"); 
+  };
 
   return (
     <Form>
@@ -18,7 +24,7 @@ export default function SignIn() {
           <p>아이디 저장</p>
         </div>
         <RowFlexbox>
-          <PageMove>비밀번호 찾기</PageMove>
+          <PageMove type="button" onClick={goToCheckEmail}>비밀번호 찾기</PageMove>
           <PageMove type="button" onClick={setIsLogin}>회원가입</PageMove>
         </RowFlexbox>
       </BetweenFlexbox>
