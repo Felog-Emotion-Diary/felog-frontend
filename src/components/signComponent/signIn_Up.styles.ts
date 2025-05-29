@@ -6,7 +6,13 @@ export const InputFlexbox = styled.div`
   flex-direction: column;
   align-items : center;
   justify-content : center;
-  gap : 20px;
+  
+  span {
+    color : red;
+    width : 50%;
+    margin-bottom : 5px;
+    margin-top :20px;
+  }
 `
 
 export const Form = styled.form`
@@ -47,6 +53,7 @@ export const Button = styled.button`
   border : none;
   border-radius : 10px;
   box-shadow: 0 3px 3px gray;
+  cursor : pointer;
 `
 
 export const BetweenFlexbox = styled.div`
@@ -66,4 +73,6 @@ export const RowFlexbox = styled.div`
 export const PageMove = styled.button`
   border : none;
   background-color : transparent;
+  font-size : 1rem;
+  cursor : pointer;
 `
