@@ -1,0 +1,44 @@
+[
+  {
+    "name": "기쁨",
+    "imgSrc": "/emotions/happy.png",
+    "tagColor": "#FFD43B",
+    "backgroundColor": "#FFF2C1"
+  },
+  {
+    "name": "슬픔",
+    "imgSrc": "/emotions/sad.png",
+    "tagColor": "#4D4DFF",
+    "backgroundColor": "#CADBFF"
+  },
+  {
+    "name": "분노",
+    "imgSrc": "/emotions/angry.png",
+    "tagColor": "#FF6B6B",
+    "backgroundColor": "#FFD3D3"
+  },
+  {
+    "name": "불안",
+    "imgSrc": "/emotions/anxious.png",
+    "tagColor": "#6A89CC",
+    "backgroundColor": "#CBCBFF"
+  },
+  {
+    "name": "설렘",
+    "imgSrc": "/emotions/exciting.png",
+    "tagColor": "#FEC260",
+    "backgroundColor": "#FFDFA9"
+  },
+  {
+    "name": "무덤덤",
+    "imgSrc": "/emotions/normal.png",
+    "tagColor": "#B0BEC5",
+    "backgroundColor": "#B0BEC5"
+  },
+  {
+    "name": "편안함",
+    "imgSrc": "/emotions/safe.png",
+    "tagColor": "#A3D9A5",
+    "backgroundColor": "#E3F4E4"
+  }
+]

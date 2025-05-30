@@ -1,70 +1,79 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { DataSection, EditorSection, EmotionBox, SubmitButton, UploadPictureBox } from "./diaryWriteComponent.styles"
 import { FaRegImage } from "react-icons/fa6";
+import { backgroundStore } from "../../store/emotionBackgroundColorStore";
+import '@toast-ui/editor/dist/toastui-editor.css';
+import MDEditor from "@uiw/react-md-editor";
+import emotions from '../../../emotions.json'
+import { useForm, type SubmitHandler } from "react-hook-form";
 
-const emotions = [
-  {
-    name: '기쁨',
-    imgSrc: '/emotions/happy.png',
-    tagColor: '#FFD43B',
-    backgroundColor: '#FFF2C1'
-  },
-  {
-    name: '슬픔',
-    imgSrc: '/emotions/sad.png',
-    tagColor: '#4D4DFF',
-    backgroundColor: '#CADBFF'
-  },
-  {
-    name: '분노',
-    imgSrc: '/emotions/angry.png',
-    tagColor: '#FF6B6B',
-    backgroundColor: '#FFD3D3'
-  },
-  {
-    name: '불안',
-    imgSrc: '/emotions/anxious.png',
-    tagColor: '#6A89CC',
-    backgroundColor: '#CBCBFF'
-  },
-  {
-    name: '설렘',
-    imgSrc: '/emotions/exciting.png',
-    tagColor: '#FEC260',
-    backgroundColor: '#FFDFA9'
-  },
-  {
-    name: '무덤덤',
-    imgSrc: '/emotions/normal.png',
-    tagColor: '#B0BEC5',
-    backgroundColor: '#B0BEC5'
-  },
-  {
-    name: '편안함',
-    imgSrc: '/emotions/safe.png',
-    tagColor: '#A3D9A5',
-    backgroundColor: '#E3F4E4'
-  },
-]
+type TDiary = {
+  title: string;
+  content: string | undefined;
+  date?: string;
+  emotion: string;
+  imgUrl: string;
+}
 
 export default function DiaryWriteComponent() {
   const [selected, setSelected] = useState<number | null>(null);
   const [isImageSelected, setIsImageSelected] = useState<boolean>(false);
   const [imagePath, setImagePath] = useState<string | null>(null);
+  const [diaryValue, setDiaryValue] = useState<string | undefined>('');
+  const setBackground = backgroundStore((state) => state.setBackground);
+
+  const { register, setValue, handleSubmit, formState: { errors } } = useForm<TDiary>({
+    defaultValues: {
+      title: '',
+      content: '',
+      date: '',
+      emotion: '',
+      imgUrl: ''
+    }
+  });
+
+  useEffect(() => {
+    setValue('content', diaryValue);
+    if (selected) {
+      setValue('emotion', emotions[selected - 1].name)
+    }
+  }, [diaryValue, selected, setValue])
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const imagePath = URL.createObjectURL(file);
       setImagePath(imagePath);
+      setValue('imgUrl', imagePath);
       setIsImageSelected(true);
     }
+  }
+
+  const emotionCheck = (color: string, i: number) => {
+    setSelected(i);
+    setBackground(color);
+  }
+
+  const diarySubmit: SubmitHandler<TDiary> = (data) => {
+    console.log(data);
   }
 
   return (
     <>
       <EditorSection>
-        에디터가 들어갈 자리입니다.
+        <div className="editorBox" data-color-mode='light'>
+          <input className="diaryTitle" placeholder="일기 제목" {...register('title')} />
+          <MDEditor
+            value={diaryValue}
+            onChange={setDiaryValue}
+            preview="edit"
+            visibleDragbar={false}
+            textareaProps={{
+              placeholder: "오늘의 일기를 작성해주세요."
+            }}
+            height='100%'
+          />
+        </div>
       </EditorSection>
       <DataSection>
         <div>
@@ -72,7 +81,7 @@ export default function DiaryWriteComponent() {
           <div className="imageContainer">
             {
               emotions.map((e, i) => (
-                <EmotionBox key={i} $selected={selected === i} $tagcolor={e.tagColor} $backgroundcolor={e.backgroundColor} onClick={() => setSelected(i)}>
+                <EmotionBox key={i} $selected={selected === i} $tagcolor={e.tagColor} onClick={() => emotionCheck(e.backgroundColor, i)}>
                   <img src={e.imgSrc} />
                   <span className="emotionTag">{e.name}</span>
                 </EmotionBox>
@@ -98,7 +107,7 @@ export default function DiaryWriteComponent() {
           <label htmlFor="fileInput">이미지 첨부하기</label>
           <input type="file" id="fileInput" onChange={handleImageChange} />
         </UploadPictureBox>
-        <SubmitButton>작성하기</SubmitButton>
+        <SubmitButton onClick={handleSubmit(diarySubmit)}>작성하기</SubmitButton>
       </DataSection>
     </>
   )
