@@ -2,22 +2,25 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
+  width: 100%;
   background: #ffffff;
   border-radius: 12px;
-  padding: 12px 18px;
+  padding: 10px 18px;
   box-shadow: 0 5px 6px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
 `;
 
 export const Title = styled.p`
   font-weight: bold;
-  font-size: 22px;
+  font-size: 24px;
   margin-bottom: 16px;
+  margin-top: 4px;
   display: flex;
   justify-content: space-between;
 `;
 
 export const StyledLink = styled(Link)`
-  font-size: 12px;
+  font-size: 15px;
   color: #888;
   text-decoration: none;
   margin-top: 7px;
@@ -37,12 +40,12 @@ export const EmotionList = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   justify-items: center;
-  margin: 10px;
+  margin: 8px;
 `;
 
 export const EmotionItem = styled.div`
   text-align: center;
-  font-size: 40px;
+  font-size: 45px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,7 +53,7 @@ export const EmotionItem = styled.div`
 
 export const Percentage = styled.div<{ emotion?: string }>`
   margin-top: 6px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   padding: 4px 8px;
   border-radius: 12px;

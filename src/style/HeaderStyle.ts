@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const HeaderWrapper = styled.header`
   width: 100%;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   .logo img {
-    width: 70px;
+    width: 80px;
   }
 
   .left {
@@ -24,7 +24,8 @@ export const HeaderWrapper = styled.header`
 
     a {
       text-decoration: none;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
+      font-weight: bold;
       color: #333;
 
       &:hover {
@@ -40,7 +41,7 @@ export const HeaderWrapper = styled.header`
     button {
       background: none;
       border: none;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       cursor: pointer;
       color: #333;
 

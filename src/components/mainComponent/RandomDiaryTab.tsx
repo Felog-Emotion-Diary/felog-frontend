@@ -12,7 +12,7 @@ const RandomDiaryTabStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 250px;
+  width: 300px;
   min-height: 60px;
   background-color: #fffdf8;
   text-align: center;
@@ -20,7 +20,7 @@ const RandomDiaryTabStyle = styled.div`
   border-radius: 20px 20px 0 0px;
 
   .tab-title {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 500;
     color: #333; 
   }

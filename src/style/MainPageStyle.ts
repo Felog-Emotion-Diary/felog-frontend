@@ -16,10 +16,18 @@ margin-top: 35px;
   overflow: hidden;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 1500px;
+  width: 100%;
+`;
+
+export const CalendarWrapper = styled.div`
+  min-width: 600px;
+  max-width: 900px;
 `;
 
 export const RightPanel = styled.div`
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   gap: 20px;
 `;

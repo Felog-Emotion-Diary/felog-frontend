@@ -1,16 +1,21 @@
 .react-calendar {
   font-size: 1.2rem;
-  width: 600px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 900px;
   border-radius: 15px;
   border: none;
   padding: 20px 20px;
 }
 
 .react-calendar__navigation__label {
-  font-size: 1.25rem;
   pointer-events: none;
   cursor: default;
+}
+
+.react-calendar__navigation button {
+  min-width: 44px;
+  font-size: 1.4rem;
+  background: none;
 }
 
 .react-calendar__navigation button:enabled:hover,
@@ -22,11 +27,11 @@
 .react-calendar__month-view__weekdays__weekday {
   padding: 1rem 0;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 }
 
 .react-calendar__tile {
-  padding: 1.3rem 0.5rem;
+  padding: 2.3rem 0.5rem;
   margin: 0.2rem;
   border-radius: 50%;
   position: relative;
@@ -36,6 +41,7 @@
 .react-calendar__tile abbr {
   position: relative;
   z-index: 2;
+  font-size: large;
 }
 
 .react-calendar__month-view__days__day {
@@ -69,8 +75,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   transform: translate(-50%, -50%);
   background: #d8d2c2;
   border-radius: 50%;
@@ -95,8 +101,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   transform: translate(-50%, -50%);
   border: 2px solid #4a4947;
   border-radius: 50%;
@@ -150,8 +156,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   z-index: 0;
