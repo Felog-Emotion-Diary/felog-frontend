@@ -19,17 +19,17 @@ export const FormContainer = styled.div`
 
   h1 {
     margin-bottom: 24px;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 `;
 
 export const Input = styled.input`
   width: 350px;
-  padding: 12px 16px;
+  padding: 12px 18px;
   border-radius: 999px;
   border: 1px solid #ccc;
-  margin-bottom: 20px;
-  font-size: 1rem;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
   outline: none;
 
   &:focus {
@@ -42,10 +42,10 @@ export const Button = styled.button`
   padding: 12px;
   background-color: #4A4947;
   color: white;
-  font-weight: bold;
+  font-size: 1.2rem;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
+  margin-top: 15px;
 
   &:hover {
     background-color: #444;
