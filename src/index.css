@@ -1,9 +1,13 @@
-html, body, #root {
-  margin: 0;
-  padding: 0;
+html,
+body,
+#root {
+  background-color: #faf7f0;
   height: 100%;
+  overflow-x: hidden;
 }
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
