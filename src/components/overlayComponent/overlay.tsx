@@ -1,6 +1,6 @@
-import { Button, ImageContainer, Overlay } from "./overlay.styles";
-import Logo from '../../../assets/Logo.png'
-import { overlayStore } from "../../../store/signInStore";
+import { Button, ImageContainer, Overlay } from "../../style/overlay.styles";
+import Logo from '../../assets/Logo.png'
+import { overlayStore } from "../../store/signInStore";
 
 export default function OverlayComponent() {
   const islogin = overlayStore((state) => state.isLogin);

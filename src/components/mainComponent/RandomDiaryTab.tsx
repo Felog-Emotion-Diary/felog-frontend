@@ -1,8 +1,11 @@
 import { styled } from "styled-components";
+import { ModalStore } from "../../store/ModalStore";
 
 function RandomDiaryTab() {
+  const setModalOpen = ModalStore((state) => state.setModalOpen);
+
   return (
-    <RandomDiaryTabStyle>
+    <RandomDiaryTabStyle onClick={setModalOpen}>
       <h2 className="tab-title">잊고 있던 하루 💭</h2>
     </RandomDiaryTabStyle>
   );

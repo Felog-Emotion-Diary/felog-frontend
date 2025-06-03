@@ -15,29 +15,29 @@ export const Overlay = styled.div<{ $islogin: boolean }>`
   p {
     font-weight : bold;
     font-size : 3rem;
-    margin-top : 0;
+    margin-bottom : 2.5rem;
   }
 
   span{
-    font-size : 1.5rem;
-    margin : 3px;
+    font-size : 1.25rem;
+    margin : 0.25rem;
   }
 `
 
 export const ImageContainer = styled.div`
   img {
-    width : 300px;
+    width : 17rem;
   }
 `
 
 export const Button = styled.button`
   background-color : #4A4947;
-  margin-top : 50px;
+  margin-top : 3rem;
   width : 30%;
   height : 4rem;
-  font-size : 2rem;
+  font-size : 1.5rem;
   color : white;
   border : none;
-  border-radius : 10px;
-  box-shadow: 0 3px 3px gray;
+  border-radius : 1rem;
+  box-shadow: 0 0.3rem 0.3rem gray;
 `

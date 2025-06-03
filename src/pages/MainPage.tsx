@@ -6,6 +6,7 @@ import { MainContentWrapper, MainPageStyle, RightPanel } from "../style/MainPage
 import type { DiaryEntry } from "../types/DiaryEntry";
 import calculateStreak from "../utils/caculateStreak";
 import { MainEmotionStats } from "../utils/MainEmotionStats";
+import Modal from 'react-modal'
 
 const diaryEntries: DiaryEntry[] = [
   { date: "2025-05-06", emotion: "happy" },
@@ -31,7 +32,7 @@ function MainPage() {
           <EmotionSummary stats={emotionStats} />
         </RightPanel>
       </MainContentWrapper>
-      <RandomDiaryTab/>
+      <RandomDiaryTab />
     </MainPageStyle>
   );
 }

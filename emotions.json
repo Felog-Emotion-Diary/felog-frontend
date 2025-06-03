@@ -1,0 +1,44 @@
+[
+  {
+    "name": "기쁨",
+    "emoji": "😊",
+    "tagColor": "#FFD43B",
+    "backgroundColor": "#FFF2C1"
+  },
+  {
+    "name": "슬픔",
+    "emoji": "😢",
+    "tagColor": "#4D4DFF",
+    "backgroundColor": "#CADBFF"
+  },
+  {
+    "name": "분노",
+    "emoji": "😡",
+    "tagColor": "#FF6B6B",
+    "backgroundColor": "#FFD3D3"
+  },
+  {
+    "name": "불안",
+    "emoji": "😨",
+    "tagColor": "#6A89CC",
+    "backgroundColor": "#CBCBFF"
+  },
+  {
+    "name": "설렘",
+    "emoji": "😍",
+    "tagColor": "#FEC260",
+    "backgroundColor": "#FFDFA9"
+  },
+  {
+    "name": "무덤덤",
+    "emoji": "😐",
+    "tagColor": "#B0BEC5",
+    "backgroundColor": "#B0BEC5"
+  },
+  {
+    "name": "편안함",
+    "emoji": "😌",
+    "tagColor": "#A3D9A5",
+    "backgroundColor": "#E3F4E4"
+  }
+]

@@ -3,6 +3,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./calendarCustom.css";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -25,18 +26,27 @@ const emotionColors: Record<string, string> = {
 };
 
 function DiaryCalendar() {
+  const navigate = useNavigate()
   const [value, setValue] = useState<Value>(new Date());
+
+  const moveToDiary = (date: Date) => {
+    const convertedDate = date.toLocaleDateString()
+    const formatDate = format(convertedDate, 'yyyy-MM-dd');
+    // alert(formatDate);
+    navigate(`/diaries/write?date=${formatDate}`);
+  }
 
   return (
     <div>
       <Calendar
+        onClickDay={(value) => moveToDiary(value)}
         onChange={setValue}
         value={value}
         showNeighboringMonth={false}
         locale="ko-KO"
         calendarType="gregory"
-        prev2Label={null} 
-        next2Label={null} 
+        prev2Label={null}
+        next2Label={null}
         formatDay={(locale, date) => format(date, "d")}
         tileClassName={({ date, view }) => {
           if (view === "month") {
