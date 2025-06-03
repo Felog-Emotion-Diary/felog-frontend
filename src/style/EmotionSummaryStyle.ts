@@ -48,13 +48,13 @@ export const EmotionItem = styled.div`
   align-items: center;
 `;
 
-export const Percentage = styled.div<{ emotion?: string }>`
+export const Percentage = styled.div<{ $emotion?: string }>`
   margin-top: 6px;
   font-size: 13px;
   font-weight: 500;
   padding: 4px 8px;
   border-radius: 12px;
-  background-color: ${({ emotion }) => getEmotionColor(emotion)};
+  background-color: ${({ $emotion }) => getEmotionColor($emotion)};
   color: black;
 `;
 

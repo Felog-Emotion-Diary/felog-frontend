@@ -1,0 +1,44 @@
+[
+  {
+    "title": "테스트 데이터입니다.(1)",
+    "emotion": "기쁨",
+    "createdAt": "2025-06-01",
+    "imageSrc": "/defaultImage.jpg"
+  },
+  {
+    "title": "테스트 데이터입니다.(2)",
+    "emotion": "슬픔",
+    "createdAt": "2025-06-02",
+    "imageSrc": "defaultImage.jpg"
+  },
+  {
+    "title": "테스트 데이터입니다.(3)",
+    "emotion": "분노",
+    "createdAt": "2025-06-03",
+    "imageSrc": "defaultImage.jpg"
+  },
+  {
+    "title": "테스트 데이터입니다.(4)",
+    "emotion": "불안",
+    "createdAt": "2025-06-04",
+    "imageSrc": "defaultImage.jpg"
+  },
+  {
+    "title": "테스트 데이터입니다.(5)",
+    "emotion": "설렘",
+    "createdAt": "2025-06-05",
+    "imageSrc": "defaultImage.jpg"
+  },
+  {
+    "title": "테스트 데이터입니다.(6)",
+    "emotion": "무덤덤",
+    "createdAt": "2025-06-06",
+    "imageSrc": "defaultImage.jpg"
+  },
+  {
+    "title": "테스트 데이터입니다.(7)",
+    "emotion": "편안함",
+    "createdAt": "2025-06-07",
+    "imageSrc": "defaultImage.jpg"
+  }
+]

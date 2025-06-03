@@ -14,7 +14,7 @@ export default function Router() {
       <Route path="/check-email" element={<CheckEmail />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<Layout />}>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/main" element={<MainPage />} />
       </Route>
     </Routes>
   );

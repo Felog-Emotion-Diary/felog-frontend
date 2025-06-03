@@ -7,7 +7,7 @@ export const Container = styled.div<{ $background: string }>`
   overflow : hidden;
   grid-template-rows : 1fr;
   grid-template-columns : 6fr 4fr;
-  background-color : ${(props) => props.$background}4d;
+  background-color : ${(props) => props.$background};
   transition : background-color 1s ease-in-out;
 `
 

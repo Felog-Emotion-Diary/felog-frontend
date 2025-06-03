@@ -26,7 +26,7 @@ export const EditorSection = styled.div`
   }
 
   .editorBox {
-    height :90%;
+    height :70vh;
     width : 80%;
 
     .w-md-editor {
@@ -37,6 +37,10 @@ export const EditorSection = styled.div`
     .w-md-editor-text-pre > code, .w-md-editor-text-input, .wmde-markdown {
       font-size : 1.5rem !important;
       line-height : 1.75rem !important;
+    }
+
+    .w-md-editor-text{
+      padding : 1rem;
     }
 
     .w-md-editor-toolbar {
@@ -85,7 +89,7 @@ export const DataSection = styled.div`
   }
 `
 
-export const EmotionBox = styled.div<{ $tagcolor: string; $selected: boolean } >`
+export const EmotionBox = styled.div<{ $tagcolor?: string; $selected?: boolean } >`
   display : flex;
   flex-direction : column;
   align-items : center;
@@ -99,9 +103,13 @@ export const EmotionBox = styled.div<{ $tagcolor: string; $selected: boolean } >
     opacity : 1;
   }
 
-  span {
-    text-align : center;
-    font-size : 2rem;
+  // span {
+  //   text-align : center;
+  //   font-size : 2rem;
+  // }
+
+  img {
+    width : 3rem;
   }
 
   .emotionTag {

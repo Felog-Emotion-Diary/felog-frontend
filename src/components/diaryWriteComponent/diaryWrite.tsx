@@ -83,7 +83,7 @@ export default function DiaryWriteComponent() {
             {
               emotions.map((e, i) => (
                 <EmotionBox key={i} $selected={selected === i} $tagcolor={e.tagColor} onClick={() => emotionCheck(e.backgroundColor, i)}>
-                  <span>{e.emoji}</span>
+                  <img src={e.emoji} />
                   <span className="emotionTag">{e.name}</span>
                 </EmotionBox>
               ))

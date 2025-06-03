@@ -8,8 +8,6 @@ function Header() {
   const date = new Date();
   const todayString = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`
 
-  console.log(todayString);
-
   return (
     <HeaderWrapper>
       <div className="left">
