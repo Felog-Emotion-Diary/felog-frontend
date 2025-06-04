@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const HeaderWrapper = styled.header`
   width: 100%;
   max-width: 1500px;
+  height: 100px;
+  padding: 0 24px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -15,7 +17,7 @@ export const HeaderWrapper = styled.header`
   .left {
     display: flex;
     align-items: center;
-    gap: 50px; 
+    gap: 50px;
   }
 
   .menu {
@@ -25,11 +27,14 @@ export const HeaderWrapper = styled.header`
     a {
       text-decoration: none;
       font-size: 1.4rem;
-      font-weight: bold;
       color: #333;
 
       &:hover {
         color: #d8d2c2;
+      }
+
+      &.active {
+        font-weight: bold;
       }
     }
   }
