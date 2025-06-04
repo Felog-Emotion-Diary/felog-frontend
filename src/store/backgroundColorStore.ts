@@ -3,10 +3,24 @@ import { create } from "zustand";
 interface IBackgroundColorState {
   background: string;
   setBackground: (bg: string) => void;
+  reset: () => void;
 }
 
-export const backgroundStore = create<IBackgroundColorState>((set) => ({
+type TBackgroundState = {
+  background: string
+}
+
+const initialState: TBackgroundState = {
   background: '#fff9e3',
-  setBackground: (bg) => set({ background: bg })
+}
+
+export const backgroundStore = create<IBackgroundColorState>()((set) => ({
+  ...initialState,
+  setBackground: (bg: string) => {
+    set({ background: bg })
+  },
+  reset: () => {
+    set(initialState)
+  }
 }))
 

@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function DiaryWrite() {
   const background = backgroundStore((state) => state.background)
+  const reset = backgroundStore((state) => state.reset)
   const navigate = useNavigate();
   const exitDiary = () => {
     if (confirm('일기 작성을 취소하고 메인화면으로 돌아갈까요?')) {
-      navigate('/');
+      navigate('/main');
+      reset();
     } else {
       return;
     }

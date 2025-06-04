@@ -62,6 +62,14 @@ export const BetweenFlexbox = styled.div`
   display : flex;
   justify-content : space-between;
   padding-top : 1rem;
+  
+  label {
+    padding-left : 20px;
+
+    input[type='checkbox']{
+      margin-right : 0.5rem;
+    }
+  }
 `
 
 export const RowFlexbox = styled.div`
