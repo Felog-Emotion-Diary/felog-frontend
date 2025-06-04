@@ -9,6 +9,10 @@ function RandomDiaryTab() {
 }
 
 const RandomDiaryTabStyle = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +26,7 @@ const RandomDiaryTabStyle = styled.div`
   .tab-title {
     font-size: 20px;
     font-weight: 500;
-    color: #333; 
+    color: #333;
   }
 `;
 
