@@ -2,7 +2,12 @@ import DiaryCalendar from "../components/mainComponent/calendar";
 import EmotionSummary from "../components/mainComponent/EmotionSummary";
 import RandomDiaryTab from "../components/mainComponent/RandomDiaryTab";
 import StreakNotice from "../components/mainComponent/StreakNotice";
-import { MainContentWrapper, MainPageStyle, RightPanel } from "../style/MainPageStyle";
+import {
+  CalendarWrapper,
+  MainContentWrapper,
+  MainPageStyle,
+  RightPanel,
+} from "../style/MainPageStyle";
 import type { DiaryEntry } from "../types/DiaryEntry";
 import calculateStreak from "../utils/caculateStreak";
 import { MainEmotionStats } from "../utils/MainEmotionStats";
@@ -26,7 +31,9 @@ function MainPage() {
   return (
     <MainPageStyle>
       <MainContentWrapper>
-        <DiaryCalendar />
+        <CalendarWrapper>
+          <DiaryCalendar />
+        </CalendarWrapper>
         <RightPanel>
           <StreakNotice nickname={userNickname} streak={streakCount} />
           <EmotionSummary stats={emotionStats} />
