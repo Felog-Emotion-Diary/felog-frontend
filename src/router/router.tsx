@@ -5,6 +5,7 @@ import CheckEmail from "../pages/CheckEmail";
 import ResetPassword from "../pages/ResetPassword";
 import MainPage from "../pages/MainPage";
 import Layout from "../components/layout/Layout";
+import EmotionStats from "../pages/EmotionStats";
 
 export default function Router() {
   return (
@@ -15,6 +16,7 @@ export default function Router() {
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<Layout />}>
         <Route path="/main" element={<MainPage />} />
+        <Route path="/emotion-stats" element={<EmotionStats />} />
       </Route>
     </Routes>
   );
