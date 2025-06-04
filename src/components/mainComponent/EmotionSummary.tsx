@@ -9,16 +9,7 @@ import {
   Percentage,
   StyledLink,
 } from "../../style/EmotionSummaryStyle";
-
-const EMOJI_MAP: Record<string, string> = {
-  happy: "😊",
-  sad: "😢",
-  angry: "😡",
-  anxious: "😨",
-  calm: "😌",
-  neutral: "😐",
-  love: "😍",
-};
+import { EMOJI_MAP } from "../../utils/emotionUtils";
 
 interface EmotionSummaryProps {
   stats: EmotionStat[];
@@ -29,12 +20,14 @@ const EmotionSummary: React.FC<EmotionSummaryProps> = ({ stats }) => {
     <Container>
       <Title>
         <span>이번주의 감정</span>
-        <StyledLink to="/emotion-stats">더 알아보기 <MdKeyboardArrowRight /></StyledLink>
+        <StyledLink to="/emotion-stats">
+          더 알아보기 <MdKeyboardArrowRight />
+        </StyledLink>
       </Title>
       <EmotionList>
         {stats.map(({ emotion, percentage }) => (
           <EmotionItem key={emotion}>
-            <div>{EMOJI_MAP[emotion]}</div>
+            <img src={EMOJI_MAP[emotion]} alt={emotion} width={60} height={60} />
             <Percentage emotion={emotion}>{percentage}%</Percentage>
           </EmotionItem>
         ))}

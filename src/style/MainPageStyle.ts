@@ -6,6 +6,7 @@ export const MainPageStyle = styled.main`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  margin-top: 20px;
   gap:48px;
 `;
 

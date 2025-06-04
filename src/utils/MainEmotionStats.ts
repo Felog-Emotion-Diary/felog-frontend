@@ -1,14 +1,13 @@
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import type { DiaryEntry, Emotion } from "../types/DiaryEntry";
+import { ALL_EMOTIONS } from "./emotionUtils";
 dayjs.extend(isBetween);
 
 export interface EmotionStat {
   emotion: Emotion;
   percentage: number;
 }
-
-const ALL_EMOTIONS: Emotion[] = ['happy', 'sad', 'angry', 'anxious', 'calm', 'neutral', 'love'];
 
 export function MainEmotionStats(entries: DiaryEntry[]): EmotionStat[] {
   const today = dayjs("2025-05-10");
@@ -19,15 +18,10 @@ export function MainEmotionStats(entries: DiaryEntry[]): EmotionStat[] {
   );
 
   const total = recentEntries.length;
-  const counts: Record<Emotion, number> = {
-    happy: 0,
-    sad: 0,
-    angry: 0,
-    anxious: 0,
-    calm: 0,
-    neutral: 0,
-    love: 0,
-  };
+
+  const counts: Record<Emotion, number> = Object.fromEntries(
+    ALL_EMOTIONS.map((emotion) => [emotion, 0])
+  ) as Record<Emotion, number>;
 
   recentEntries.forEach((entry) => {
     counts[entry.emotion]++;

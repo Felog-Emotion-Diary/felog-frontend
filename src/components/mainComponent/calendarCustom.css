@@ -16,6 +16,7 @@
   min-width: 44px;
   font-size: 1.4rem;
   background: none;
+  margin-top: 10px;
 }
 
 .react-calendar__navigation button:enabled:hover,
@@ -28,6 +29,7 @@
   padding: 1rem 0;
   font-weight: bold;
   font-size: 1.1rem;
+  margin-top: 10px;
 }
 
 .react-calendar__tile {
