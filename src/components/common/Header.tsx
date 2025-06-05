@@ -5,6 +5,8 @@ import { HeaderWrapper } from "../../style/HeaderStyle";
 import logo from "../../assets/Logo.png";
 
 function Header() {
+  const date = new Date();
+  const todayString = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`
   const location = useLocation();
 
   return (
@@ -18,7 +20,7 @@ function Header() {
 
         <nav className="menu">
           <Link
-            to="/write"
+            to={`/write?date=${todayString}`}
             className={location.pathname === "/write" ? "active" : ""}
           >
             일기작성
@@ -37,7 +39,6 @@ function Header() {
           </Link>
         </nav>
       </div>
-
       <div className="icons">
         <button aria-label="다크모드 전환">
           <MdLightMode />

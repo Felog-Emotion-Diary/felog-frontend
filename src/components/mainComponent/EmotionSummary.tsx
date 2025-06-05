@@ -28,7 +28,7 @@ const EmotionSummary: React.FC<EmotionSummaryProps> = ({ stats }) => {
         {stats.map(({ emotion, percentage }) => (
           <EmotionItem key={emotion}>
             <img src={EMOJI_MAP[emotion]} alt={emotion} width={60} height={60} />
-            <Percentage emotion={emotion}>{percentage}%</Percentage>
+            <Percentage $emotion={emotion}>{percentage}%</Percentage>
           </EmotionItem>
         ))}
       </EmotionList>
