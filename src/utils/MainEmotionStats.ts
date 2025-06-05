@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
-import type { DiaryEntry, Emotion } from "../types/DiaryEntry";
-import { ALL_EMOTIONS } from "./emotionUtils";
+import type { DiaryEntry } from "../types/DiaryEntry";
+import { ALL_EMOTIONS, type Emotion } from "./emotionUtils";
 dayjs.extend(isBetween);
 
 export interface EmotionStat {

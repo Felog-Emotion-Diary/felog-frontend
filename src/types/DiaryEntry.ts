@@ -1,11 +1,4 @@
-export type Emotion =
-  | "happy"
-  | "sad"
-  | "angry"
-  | "anxious"
-  | "calm"
-  | "neutral"
-  | "love";
+import type { Emotion } from "../utils/emotionUtils";
 
 export interface DiaryEntry {
     date : string;
