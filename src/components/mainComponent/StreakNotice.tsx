@@ -20,7 +20,7 @@ export default StreakNotice;
 
 const NoticeBox = styled.div`
   width: 100%;
-  padding: 5px 20px;
+  padding: 20px 20px;
   font-size: 1.3rem;
   background: white;
   border-radius: 8px;
