@@ -13,7 +13,7 @@ function Header() {
     <HeaderWrapper>
       <div className="left">
         <h1 className="logo">
-          <Link to="/">
+          <Link to="/main">
             <img src={logo} alt="logo" />
           </Link>
         </h1>
