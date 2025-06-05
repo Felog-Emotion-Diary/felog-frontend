@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
 const calculateStreak = (diaryDates: string[]): number => {
-  const today = dayjs("2025-05-10");
+  const today = dayjs();
   let streak = 0;
 
   for (let i = 0; i < 100; i++) {
