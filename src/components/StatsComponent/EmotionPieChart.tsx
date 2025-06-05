@@ -1,8 +1,8 @@
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from "recharts";
-import { emotionColorMap, type Emotion } from "../../utils/emotionUtils";
+import { emotionColorMap, type EmotionCode } from "../../utils/emotionUtils";
 
 interface PieData {
-  emotion: string;
+  emotion: EmotionCode;
   count: number;
 }
 
@@ -61,7 +61,7 @@ function EmotionPieChart({ data }: Props) {
           {data.map((entry, index) => (
             <Cell
               key={`cell-${index}`}
-              fill={emotionColorMap[entry.emotion as Emotion] || "#ddd"}
+              fill={emotionColorMap[entry.emotion] || "#ddd"}
             />
           ))}
         </Pie>

@@ -1,6 +1,9 @@
-import type { Emotion } from "../utils/emotionUtils";
+import type { EmotionCode } from "../utils/emotionUtils";
 
 export interface DiaryEntry {
-    date : string;
-    emotion : Emotion;
+  title: string;
+  content: string;
+  date: string;
+  emotion: EmotionCode;
+  imgUrl?: string;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StatCard from "../components/StatsComponent/StatCard";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,7 +7,7 @@ import { ko } from "date-fns/locale";
 import EmotionPieChart from "../components/StatsComponent/EmotionPieChart";
 import WeekEmotionChart from "../components/StatsComponent/WeekEmotionChart";
 import WeekDiaryCountChart from "../components/StatsComponent/WeekDiaryCountChart";
-import { EMOJI_MAP, type Emotion } from "../utils/emotionUtils";
+import { emotionMap, getEmotionInfo } from "../utils/emotionUtils";
 import {
   BottomWrapper,
   ChartBox,
@@ -18,44 +18,55 @@ import {
   Header,
   Wrapper,
 } from "../style/EmotionStatsStyle";
-
-const dummyStats = {
-  longTxtLength: 1200,
-  mostEmotion: { emoji: "😢", percent: 72 },
-  totalCount: 72,
-  streakCount: 32,
-  emotionCounts: [
-    { emotion: "happy", count: 34 },
-    { emotion: "sad", count: 32 },
-    { emotion: "angry", count: 32 },
-    { emotion: "anxious", count: 1 },
-    { emotion: "calm", count: 16 },
-    { emotion: "love", count: 18 },
-    { emotion: "neutral", count: 12 },
-  ],
-  emotionPerWeek: {
-    mon: { emotion: "happy" as Emotion, count: 3 },
-    tue: { emotion: "sad" as Emotion, count: 5 },
-    wed: { emotion: "angry" as Emotion, count: 1 },
-    thu: { emotion: "anxious" as Emotion, count: 2 },
-    fri: { emotion: "calm" as Emotion, count: 4 },
-    sat: { emotion: "love" as Emotion, count: 3 },
-    sun: { emotion: "neutral" as Emotion, count: 2 },
-  },
-  diaryCountPerWeek: [
-    { day: "월", count: 10 },
-    { day: "화", count: 3 },
-    { day: "수", count: 8 },
-    { day: "목", count: 4 },
-    { day: "금", count: 22 },
-    { day: "토", count: 3 },
-    { day: "일", count: 1 },
-  ],
-};
+import type { DiaryEntry } from "../types/DiaryEntry";
+import calculateStreak from "../utils/caculateStreak";
+import {
+  getLongestDiaryLength,
+  calculateEmotionRatio,
+  calculateEmotionPerWeek,
+  calculateDiaryCountPerWeek,
+} from "../utils/statUtils";
 
 function EmotionStats() {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const today = new Date();
+  const oneMonthAgo = new Date();
+  oneMonthAgo.setMonth(today.getMonth() - 1);
+
+  const [startDate, setStartDate] = useState<Date | null>(oneMonthAgo);
+  const [endDate, setEndDate] = useState<Date | null>(today);
+  const [entries, setEntries] = useState<DiaryEntry[]>([]);
+  const [filtered, setFiltered] = useState<DiaryEntry[]>([]);
+
+  useEffect(() => {
+    const raw = localStorage.getItem("diaries");
+    if (raw) {
+      const parsed: DiaryEntry[] = (JSON.parse(raw) as DiaryEntry[]).map(
+        (entry) => ({
+          ...entry,
+          emotion: emotionMap[entry.emotion] ?? "normal", // ← 중요!
+        })
+      );
+      const valid = parsed.filter((e) => e.date && e.emotion && e.content);
+      setEntries(valid);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!startDate || !endDate) return;
+    const filtered = entries.filter((entry) => {
+      const d = new Date(entry.date);
+      return d >= startDate && d <= endDate;
+    });
+    setFiltered(filtered);
+  }, [startDate, endDate, entries]);
+
+  const longTxtLength = getLongestDiaryLength(filtered);
+  const { emotionCounts, mostEmotion, percent } =
+    calculateEmotionRatio(filtered);
+  const streakCount = calculateStreak(filtered.map((e) => e.date));
+  const emotionPerWeek = calculateEmotionPerWeek(filtered);
+  const diaryCountPerWeek = calculateDiaryCountPerWeek(filtered);
+  const mostEmotionEmoji = getEmotionInfo(mostEmotion.emotion)?.emoji;
 
   return (
     <Container>
@@ -83,7 +94,7 @@ function EmotionStats() {
 
       <Wrapper>
         <StatCard
-          value={{ number: dummyStats.longTxtLength, unit: "자" }}
+          value={{ number: longTxtLength, unit: "자" }}
           label="가장 길었던 일기"
         />
         <StatCard
@@ -91,13 +102,13 @@ function EmotionStats() {
             number: (
               <>
                 <img
-                  src={EMOJI_MAP["sad"]} 
+                  src={mostEmotionEmoji}
                   alt="emotion"
                   width={60}
                   height={60}
                   style={{ marginBottom: "-10px", marginRight: "4px" }}
                 />
-                {dummyStats.mostEmotion.percent}
+                {percent}
               </>
             ),
             unit: "%",
@@ -105,26 +116,26 @@ function EmotionStats() {
           label="가장 많이 나타난 감정"
         />
         <ChartBox>
-          <EmotionPieChart data={dummyStats.emotionCounts} />
+          <EmotionPieChart data={emotionCounts} />
         </ChartBox>
 
         <StatCard
-          value={{ number: dummyStats.streakCount, unit: "회" }}
+          value={{ number: streakCount, unit: "회" }}
           label="연속 작성 기록"
         />
         <StatCard
-          value={{ number: dummyStats.totalCount, unit: "개" }}
+          value={{ number: filtered.length, unit: "개" }}
           label="작성한 일기 개수"
         />
 
         <BottomWrapper>
           <ChartCard>
             <ChartCardTitle>요일별 주요 감정</ChartCardTitle>
-            <WeekEmotionChart data={dummyStats.emotionPerWeek} />
+            <WeekEmotionChart data={emotionPerWeek} />
           </ChartCard>
           <ChartCard>
             <ChartCardTitle>요일별 일기 작성 횟수</ChartCardTitle>
-            <WeekDiaryCountChart data={dummyStats.diaryCountPerWeek} />
+            <WeekDiaryCountChart data={diaryCountPerWeek} />
           </ChartCard>
         </BottomWrapper>
       </Wrapper>

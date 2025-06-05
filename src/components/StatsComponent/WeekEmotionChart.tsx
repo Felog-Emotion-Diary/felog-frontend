@@ -8,11 +8,11 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { emotionColorMap, type Emotion } from "../../utils/emotionUtils";
+import { emotionColorMap, type EmotionCode } from "../../utils/emotionUtils";
 import CustomTooltip from "./CustomTooltip";
 
 interface WeekEmotionData {
-  [key: string]: { emotion: Emotion; count: number };
+  [key: string]: { emotion: EmotionCode; count: number };
 }
 
 interface Props {
