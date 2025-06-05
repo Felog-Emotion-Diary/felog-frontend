@@ -1,20 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./calendarCustom.css";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { emotionMap } from "../../utils/emotionUtils";
+import type { DiaryEntry } from "../../types/DiaryEntry";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const diaryData: Record<string, string> = {
-  "2025-05-06": "happy",
-  "2025-05-07": "anxious",
-  "2025-05-08": "calm",
-  "2025-05-09": "sad",
-  "2025-05-10": "angry",
-}
 const emotionColors: Record<string, string> = {
   happy: "emotion-happy",
   sad: "emotion-sad",
@@ -25,16 +20,38 @@ const emotionColors: Record<string, string> = {
   love: "emotion-love",
 };
 
-function DiaryCalendar() {
-  const navigate = useNavigate()
+function DiaryCalendar({ entries }: { entries: DiaryEntry[] }) {
+  const navigate = useNavigate();
   const [value, setValue] = useState<Value>(new Date());
+  const [diaryData, setDiaryData] = useState<Record<string, string>>({});
+  
+  useEffect(() => {
+    const mapped: Record<string, string> = {};
+    entries.forEach(({ date, emotion }) => {
+      const englishEmotion = emotionMap[emotion] ?? emotion; 
+      if (date && englishEmotion) {
+        mapped[date] = englishEmotion;
+      } else {
+        console.warn(`emotion 변환 실패: ${emotion}`);
+      }
+    });
+    setDiaryData(mapped);
+  }, [entries]);
 
   const moveToDiary = (date: Date) => {
-    const convertedDate = date.toLocaleDateString()
-    const formatDate = format(convertedDate, 'yyyy-MM-dd');
-    // alert(formatDate);
-    navigate(`/diaries/write?date=${formatDate}`);
-  }
+    const today = new Date();
+    const selectedDate = new Date(format(date, "yyyy-MM-dd")); 
+
+    if (selectedDate > today) {
+      return;
+    }
+    const formattedDate = format(date, "yyyy-MM-dd");
+    if (diaryData[formattedDate]) {
+      navigate(`/`);
+    } else {
+      navigate(`/write?date=${formattedDate}`);
+    }
+  };
 
   return (
     <div>

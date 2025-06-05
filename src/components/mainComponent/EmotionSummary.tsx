@@ -9,7 +9,7 @@ import {
   Percentage,
   StyledLink,
 } from "../../style/EmotionSummaryStyle";
-import { EMOJI_MAP } from "../../utils/emotionUtils";
+import { getEmotionInfo } from "../../utils/emotionUtils";
 
 interface EmotionSummaryProps {
   stats: EmotionStat[];
@@ -24,13 +24,16 @@ const EmotionSummary: React.FC<EmotionSummaryProps> = ({ stats }) => {
           더 알아보기 <MdKeyboardArrowRight />
         </StyledLink>
       </Title>
-      <EmotionList>
-        {stats.map(({ emotion, percentage }) => (
-          <EmotionItem key={emotion}>
-            <img src={EMOJI_MAP[emotion]} alt={emotion} width={60} height={60} />
-            <Percentage $emotion={emotion}>{percentage}%</Percentage>
-          </EmotionItem>
-        ))}
+       <EmotionList>
+        {stats.map(({ emotion, percentage }) => {
+          const info = getEmotionInfo(emotion);
+          return (
+            <EmotionItem key={emotion}>
+              <img src={info?.emoji} alt={info?.name} width={60} height={60} />
+              <Percentage $emotion={emotion}>{percentage}%</Percentage>
+            </EmotionItem>
+          );
+        })}
       </EmotionList>
     </Container>
   );
