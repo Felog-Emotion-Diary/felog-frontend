@@ -3,10 +3,14 @@ import { FaCog } from "react-icons/fa";
 import { MdLightMode } from "react-icons/md";
 import { HeaderWrapper } from "../../style/HeaderStyle";
 import logo from "../../assets/Logo.png";
+import { handleLogout } from "./Logout";
 
 function Header() {
   const date = new Date();
-  const todayString = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`
+  const todayString = `${date.getFullYear()}-${(
+    "0" +
+    (date.getMonth() + 1)
+  ).slice(-2)}-${("0" + date.getDate()).slice(-2)}`;
   const location = useLocation();
 
   return (
@@ -40,12 +44,17 @@ function Header() {
         </nav>
       </div>
       <div className="icons">
-        <button aria-label="다크모드 전환">
-          <MdLightMode />
-        </button>
-        <button aria-label="설정">
-          <FaCog />
-        </button>
+        <div className="logout">
+          <button onClick={handleLogout}>로그아웃</button>
+        </div>
+        <div className="icon-group">
+          <button aria-label="다크모드 전환">
+            <MdLightMode />
+          </button>
+          <button aria-label="설정">
+            <FaCog />
+          </button>
+        </div>
       </div>
     </HeaderWrapper>
   );
