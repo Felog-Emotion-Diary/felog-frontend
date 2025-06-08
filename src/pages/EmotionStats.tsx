@@ -26,6 +26,9 @@ import {
   calculateEmotionPerWeek,
   calculateDiaryCountPerWeek,
 } from "../utils/statUtils";
+// import { format } from "date-fns";
+// import { fetchEmotionStats } from "../utils/statApi";
+//import { fetchEmotionStats } from "../utils/statApi";
 
 function EmotionStats() {
   const today = new Date();
@@ -36,6 +39,15 @@ function EmotionStats() {
   const [endDate, setEndDate] = useState<Date | null>(today);
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
   const [filtered, setFiltered] = useState<DiaryEntry[]>([]);
+
+  /* 백엔드 로직 상태 선언 */
+  // const [longTxtLength, setLongTxtLength] = useState(0);
+  // const [emotionRatio, setEmotionRatio] = useState<any[]>([]);
+  // const [mostEmotion, setMostEmotion] = useState<{ emotion: string; count: number }>({ emotion: "", count: 0 });
+  // const [streakCount, setStreakCount] = useState(0);
+  // const [totalCount, setTotalCount] = useState(0);
+  // const [emotionPerWeek, setEmotionPerWeek] = useState<any>({});
+  // const [diaryCountPerWeek, setDiaryCountPerWeek] = useState<any[]>([]);
 
   useEffect(() => {
     const raw = localStorage.getItem("diaries");
@@ -67,6 +79,40 @@ function EmotionStats() {
   const emotionPerWeek = calculateEmotionPerWeek(filtered);
   const diaryCountPerWeek = calculateDiaryCountPerWeek(filtered);
   const mostEmotionEmoji = getEmotionInfo(mostEmotion.emotion)?.emoji;
+
+  /* 백엔드 로직 */
+  // useEffect(() => {
+  //   const loadStats = async () => {
+  //     if (!startDate || !endDate) return;
+
+  //     const formattedStart = format(startDate, "yyyy-MM-dd");
+  //     const formattedEnd = format(endDate, "yyyy-MM-dd");
+
+  //     try {
+  //       const { long, ratio, counts, emotionWeek, diaryWeek } =
+  //         await fetchEmotionStats(formattedStart, formattedEnd);
+
+  //       setLongTxtLength(long.data.longTxt);
+
+  //       const emotionCounts = ratio.data.emotionCounts.map((item: any) => ({
+  //         emotion: emotionMap[item.emotion] ?? "normal",
+  //         count: item.count,
+  //       }));
+  //       setEmotionRatio(emotionCounts);
+  //       setMostEmotion(emotionCounts[ratio.data.mostIdx]);
+
+  //       setTotalCount(counts.data.totalCount);
+  //       setStreakCount(counts.data.streakCount);
+
+  //       setEmotionPerWeek(emotionWeek.data);
+  //       setDiaryCountPerWeek(diaryWeek.data);
+  //     } catch (err) {
+  //       console.error("통계 데이터 불러오기 실패:", err);
+  //     }
+  //   };
+
+  //   loadStats();
+  // }, [startDate, endDate]);
 
   return (
     <Container>
