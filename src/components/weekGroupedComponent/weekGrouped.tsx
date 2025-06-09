@@ -64,6 +64,7 @@ export const WeekGroupedComponent: React.FC = () => {
             <WeekTitle>
               {weekStart} ~ {weekEnd}
             </WeekTitle>
+            <hr className="dividLine" />
             <Grid>
               {postsInWeek.map((post) => (
                 <DiaryCard key={post.id} post={post} />

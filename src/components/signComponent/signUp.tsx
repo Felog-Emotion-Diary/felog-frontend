@@ -3,6 +3,16 @@ import { overlayStore } from "../../store/signInStore";
 import { BetweenFlexbox, Button, Form, Input, InputFlexbox, PageMove, Title } from "../../style/signIn_Up.styles.ts";
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
+import { axiosInstance } from "../../utils/axiosInstance.tsx";
+import axios from "axios";
+import { AuthStore } from "../../store/authStore.ts";
+
+interface IInstanceError {
+  message: string;
+  response?: {
+    status: number;
+  };
+}
 
 type TSignUp = {
   email: string;
@@ -26,11 +36,30 @@ export default function SignUp() {
     resolver: yupResolver(schema)
   });
 
-  const onSignUp: SubmitHandler<TSignUp> = (data) => {
-    const { checkPassword, ...submitData } = data
-    console.log(submitData)
-    //axios : post 추가
-    //endpoint : /user/join
+  const onSignUp: SubmitHandler<TSignUp> = async (data) => {
+    const { checkPassword, ...submitData } = data;
+    const { nickname, ...loginData } = submitData;
+    try {
+      const signUpresponse = await axiosInstance.post('api/users/register', submitData)
+      console.log('회원가입 성공');
+      console.log(signUpresponse);
+
+      const signInResponse = await axiosInstance.post('/api/users/login', loginData);
+      console.log('로그인 성공')
+      console.log(signInResponse);
+
+      const token = signInResponse.data.token;
+      AuthStore.getState().setToken(token);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        const status = err.response?.status;
+        if (status === 409) {
+          alert('이미 존재하는 이메일입니다.');
+        } else if (status === 400) {
+          alert('모든 입력란을 작성해주세요.');
+        }
+      }
+    }
   }
 
   return (

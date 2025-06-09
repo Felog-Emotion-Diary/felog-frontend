@@ -7,21 +7,23 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup'
+import { axiosInstance } from "../../utils/axiosInstance";
+import axios from "axios";
 
-type TDiary = {
+interface IDiary {
   title: string;
   content: string;
-  date: string;
-  emotion: string;
-  imgUrl: string;
+  emotionId: number;
+  img: string;
+  status: string;
 }
 
 const schema = yup.object({
   title: yup.string().required(),
   content: yup.string().required(),
-  date: yup.string().required(),
-  emotion: yup.string().required(),
-  imgUrl: yup.string().required(),
+  emotionId: yup.number().required(),
+  img: yup.string().required(),
+  status: yup.string().required()
 })
 
 export default function DiaryWriteComponent() {
@@ -33,15 +35,15 @@ export default function DiaryWriteComponent() {
   const [searchParams, setSearchParams] = useSearchParams();
   const dateQurey = searchParams.get('date')?.toString();
 
-  const { register, setValue, handleSubmit, formState: { errors, isValid } } = useForm<TDiary>({
+  const { register, setValue, handleSubmit, formState: { errors, isValid } } = useForm<IDiary>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {
       title: dateQurey,
       content: '',
-      date: dateQurey,
-      emotion: '',
-      imgUrl: ''
+      emotionId: 0,
+      img: '',
+      status: 'TEMP',
     }
   });
 
@@ -50,23 +52,31 @@ export default function DiaryWriteComponent() {
     if (file) {
       const imagePath = URL.createObjectURL(file);
       setImagePath(imagePath);
-      setValue('imgUrl', imagePath, { shouldValidate: true });
+      setValue('img', imagePath, { shouldValidate: true });
       setIsImageSelected(true);
     }
   }
 
   const emotionCheck = (color: string, i: number) => {
     setSelected(i);
-    setValue('emotion', emotions[i].name, { shouldValidate: true })
+    setValue('emotionId', emotions[i].code, { shouldValidate: true })
     setBackground(color);
   }
 
-  const diarySubmit: SubmitHandler<TDiary> = (data) => {
+  const diarySubmit: SubmitHandler<IDiary> = async (data) => {
     console.log(data);
-    console.log(selected);
-    console.log(emotions[selected].name);
-    console.log(isValid);
-    console.log(errors);
+    try {
+      setValue('status', 'PUBLISHED');
+      const response = await axiosInstance.put(`/api/diaries/write?date=${dateQurey}`, data);
+      console.log(response)
+    } catch (error) {
+      setValue('status', 'TEMP');
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.status, error.message)
+      }
+    }
+
+
   }
 
   return (

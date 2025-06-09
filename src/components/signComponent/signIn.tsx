@@ -7,6 +7,8 @@ import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
 import React, { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
 import { axiosInstance } from "../../utils/axiosInstance.tsx";
+import { useNavigate } from "react-router-dom";
+import { AuthStore } from "../../store/authStore.ts";
 
 type TSignIn = {
   email: string;
@@ -22,6 +24,7 @@ export default function SignIn() {
   const setIsLogin = overlayStore((state) => state.setIsLogin);
   const [isRemember, setIsRemember] = useState(false);
   const [cookies, setCookies, removeCookies] = useCookies(['rememberId'], { doNotParse: true })
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (cookies.rememberId !== undefined) {
@@ -38,12 +41,17 @@ export default function SignIn() {
       password: ''
     }
   })
-  const onLogin: SubmitHandler<TSignIn> = (data) => {
+  const onLogin: SubmitHandler<TSignIn> = async (data) => {
     try {
-      const response = axiosInstance.post('/users', data);
+      const response = await axiosInstance.post('/api/users/login', data);
       console.log(response);
+      console.log(response.data.user.token)
+      const token = response.data.user.token;
+      AuthStore.getState().setToken(token);
+      navigate('/main');
     } catch (err) {
       console.log(err);
+      alert('로그인에 실패하였습니다.\n다시 시도해주세요');
     }
   }
 

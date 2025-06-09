@@ -6,29 +6,32 @@ import testData from '../../diaryReadTestData.json';
 import { useSearchParams } from "react-router-dom";
 import { backgroundStore } from "../store/backgroundColorStore";
 import DiaryDataSection from "../components/diaryReadComponent/DiaryDataComponent";
+import { axiosInstance } from "../utils/axiosInstance";
+import axios from "axios";
 
 export default function DiaryRead() {
   const [example, setExample] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
+  const [diaryData, setDiaryData] = useState();
   const dateQurey = searchParams.get('date')?.toString();
-  const foundedData = testData.find(d => d.createdAt === dateQurey);
+  // const foundedData = testData.find(d => d.createdAt === dateQurey);
 
   const setBackground = backgroundStore((state) => state.setBackground)
 
   useEffect(() => {
-    fetch('../../example.md')
-      .then(res => res.text())
-      .then(text => setExample(text));
-    const foundedEmotionData = emotions.find(d => d.name === foundedData?.emotion);
-    if (foundedEmotionData) {
-      setBackground(foundedEmotionData?.backgroundColor);
-    }
+    // fetch('../../example.md')
+    //   .then(res => res.text())
+    //   .then(text => setExample(text));
+    // const foundedEmotionData = emotions.find(d => d.name === foundedData?.emotion);
+    // if (foundedEmotionData) {
+    //   setBackground(foundedEmotionData?.backgroundColor);
+    // }
   }, [dateQurey]);
 
   return (
     <>
       <DiaryMarkdownStyle>
-        <span className="title">{foundedData?.title}</span>
+        <span className="title">title</span>
         <hr />
         <MarkdownPreview
           className="contents"
@@ -40,7 +43,7 @@ export default function DiaryRead() {
         />
       </DiaryMarkdownStyle>
       <DiaryDataStyle>
-        <DiaryDataSection emotions={emotions} foundedData={foundedData} />
+        <DiaryDataSection emotions={emotions} />
       </DiaryDataStyle>
     </>
   )
