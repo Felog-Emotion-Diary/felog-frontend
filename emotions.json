@@ -1,51 +1,52 @@
 [
   {
     "name": "기쁨",
-    "code": "happy",
     "emoji": "/emoji/happy.png",
     "tagColor": "#FFE082",
-    "backgroundColor": "#FFFBED"
+    "backgroundColor": "#FFFBED",
+    "code": 1
+
   },
   {
     "name": "슬픔",
-    "code": "sad",
     "emoji": "/emoji/sad.png",
     "tagColor": "#90CAF9",
-    "backgroundColor": "#E1E7FF"
+    "backgroundColor": "#E1E7FF",
+    "code": 2
   },
   {
     "name": "분노",
-    "code": "angry",
     "emoji": "/emoji/angry.png",
     "tagColor": "#EF9A9A",
-    "backgroundColor": "#FFEAEA"
+    "backgroundColor": "#FFEAEA",
+    "code": 4
   },
   {
     "name": "불안",
-    "code": "anxious",
     "emoji": "/emoji/anxious.png",
     "tagColor": "#9FA8DA",
-    "backgroundColor": "#E1E1FF"
+    "backgroundColor": "#E1E1FF",
+    "code": 8
   },
   {
     "name": "설렘",
-    "code": "love",
     "emoji": "/emoji/love.png",
     "tagColor": "#FFCC80",
-    "backgroundColor": "#FFF1D9"
+    "backgroundColor": "#FFF1D9",
+    "code": 16
   },
   {
     "name": "무덤덤",
-    "code": "normal",
     "emoji": "/emoji/normal.png",
     "tagColor": "#78909C",
-    "backgroundColor": "#D1D8DC"
+    "backgroundColor": "#D1D8DC",
+    "code": 32
   },
   {
     "name": "편안함",
-    "code": "calm",
     "emoji": "/emoji/safe.png",
     "tagColor": "#A5D6A7",
-    "backgroundColor": "#F1FAF1"
+    "backgroundColor": "#F1FAF1",
+    "code": 64
   }
 ]

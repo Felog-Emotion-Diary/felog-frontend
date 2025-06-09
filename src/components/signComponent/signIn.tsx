@@ -16,7 +16,6 @@ import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { axiosInstance } from "../../utils/axiosInstance.tsx";
-import { useNavigate } from "react-router-dom";
 
 type TSignIn = {
   email: string;
@@ -34,10 +33,7 @@ const schema = yup.object({
 export default function SignIn() {
   const setIsLogin = overlayStore((state) => state.setIsLogin);
   const [isRemember, setIsRemember] = useState(false);
-  const [cookies, setCookies, removeCookies] = useCookies(["rememberId"], {
-    doNotParse: true,
-  });
-  const navigate = useNavigate();
+  const [cookies, setCookies, removeCookies] = useCookies(['rememberId'], { doNotParse: true })
 
   useEffect(() => {
     if (cookies.rememberId !== undefined) {
@@ -56,21 +52,16 @@ export default function SignIn() {
     mode: "onBlur",
     resolver: yupResolver(schema),
     defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-  const onLogin: SubmitHandler<TSignIn> = async (data) => {
+      email: '',
+      password: ''
+    }
+  })
+  const onLogin: SubmitHandler<TSignIn> = (data) => {
     try {
-      const response = await axiosInstance.post("/api/users/login", data);
-      const token = response.data.user.token;
-      localStorage.setItem("userToken", token);
-      console.log("로그인 성공", response);
-      console.log("response.data", response.data);
-      navigate("/main");
+      const response = axiosInstance.post('/users', data);
+      console.log(response);
     } catch (err) {
-      console.error("로그인 실패", err);
-      alert("이메일 또는 비밀번호가 올바르지 않습니다.");
+      console.log(err);
     }
   };
 

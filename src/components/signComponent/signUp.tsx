@@ -12,7 +12,15 @@ import {
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
 import { axiosInstance } from "../../utils/axiosInstance.tsx";
-import type { AxiosError } from "axios";
+import axios from "axios";
+import { AuthStore } from "../../store/authStore.ts";
+
+interface IInstanceError{
+  message: string;
+  response?: {
+    status: number;
+  };
+}
 
 type TSignUp = {
   email: string;
@@ -48,21 +56,29 @@ export default function SignUp() {
 
   const onSignUp: SubmitHandler<TSignUp> = async (data) => {
     const { checkPassword, ...submitData } = data;
-    console.log(submitData);
+    const { nickname, ...loginData } = submitData;
     try {
-      const response = await axiosInstance.post(
-        "api/users/register",
-        submitData
-      );
-      console.log("회원가입 성공");
-      console.log(response);
+      const signUpresponse = await axiosInstance.post('api/users/register', submitData)
+      console.log('회원가입 성공');
+      console.log(signUpresponse);
+
+      const signInResponse = await axiosInstance.post('/api/users/login', loginData);
+      console.log('로그인 성공')
+      console.log(signInResponse);
+
+      const token = signInResponse.data.token;
+      AuthStore.getState().setToken(token);
     } catch (err) {
-      const axiosErr = err as AxiosError<{ message: string }>;
-      const errorMessage =
-        axiosErr.response?.data?.message ?? "회원가입에 실패했습니다.";
-      alert(errorMessage);
+      if (axios.isAxiosError(err)) {
+        const status = err.response?.status;
+        if (status === 409) {
+          alert('이미 존재하는 이메일입니다.');
+        } else if (status === 400) {
+          alert('모든 입력란을 작성해주세요.');
+        }
+      }
     }
-  };
+  }
 
   return (
     <Form onSubmit={handleSubmit(onSignUp)}>

@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { EmotionBox } from "../../style/diaryReadPage.styles";
+import { axiosInstance } from "../../utils/axiosInstance";
+import axios from "axios";
 
 type TEmotions = {
   name: string;
@@ -13,6 +15,18 @@ type TDiaryData = {
   emotion: string;
   createdAt: string;
   imageSrc: string;
+}
+
+const handleDelete = async () => {
+  try {
+    const response = await axiosInstance.delete('/api/diaries/delete?email=lee@mail.com&date=2025-06-09');
+    console.log(response);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(error.response?.status, error.message)
+    }
+
+  }
 }
 
 export default function DiaryDataSection({ emotions, foundedData }: { emotions: TEmotions[], foundedData: TDiaryData | undefined }) {
@@ -43,7 +57,7 @@ export default function DiaryDataSection({ emotions, foundedData }: { emotions: 
         </div>
       </div>
       <div className="buttonPart">
-        <button className="delete">삭제하기</button>
+        <button onClick={handleDelete} className="delete">삭제하기</button>
         <button className="update">수정하기</button>
       </div>
     </>

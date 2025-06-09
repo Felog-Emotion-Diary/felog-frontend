@@ -12,7 +12,12 @@ export const DiaryCard: React.FC<DiaryCardProps> = ({ post }) => {
       <div className="imageBox">
       </div>
       <div className="contentBox">
-        {post.title}
+        <div className="titleBox">
+          <span className="title">{post.title}</span>
+        </div>
+        <div className="dateBox">
+          <span className="date">{post.createdAt}</span>
+        </div>
       </div>
     </Container>
   )
