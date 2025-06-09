@@ -5,6 +5,7 @@ import emotions from '../../emotions.json';
 import testData from '../../diaryReadTestData.json';
 import { useSearchParams } from "react-router-dom";
 import { backgroundStore } from "../store/backgroundColorStore";
+import DiaryDataSection from "../components/diaryReadComponent/DiaryDataComponent";
 
 export default function DiaryRead() {
   const [example, setExample] = useState('');
@@ -13,10 +14,6 @@ export default function DiaryRead() {
   const foundedData = testData.find(d => d.createdAt === dateQurey);
 
   const setBackground = backgroundStore((state) => state.setBackground)
-  // const foundedEmotionData = emotions.find(d => d.name === foundedData?.emotion);
-  // if (foundedEmotionData) {
-  //   setBackground(foundedEmotionData?.backgroundColor);
-  // }
 
   useEffect(() => {
     fetch('../../example.md')
@@ -43,29 +40,7 @@ export default function DiaryRead() {
         />
       </DiaryMarkdownStyle>
       <DiaryDataStyle>
-        <div className="emotionPart">
-          <span className="subTitle">{foundedData?.createdAt}의 기분</span>
-          <div className="imageContainer">
-            {
-              emotions.map((e, i) => (
-                <EmotionBox key={i} $tagcolor={e.tagColor} $selected={foundedData?.emotion === e.name}>
-                  <img src={e.emoji} />
-                  <span className="emotionTag">{e.name}</span>
-                </EmotionBox>
-              ))
-            }
-          </div>
-        </div>
-        <div className="uploadedImagePart">
-          <span className="subTitle pic">대표 사진</span>
-          <div className="uploadedImageContainer">
-            <img src={foundedData?.imageSrc} alt="image" />
-          </div>
-        </div>
-        <div className="buttonPart">
-          <button className="delete">삭제하기</button>
-          <button className="update">수정하기</button>
-        </div>
+        <DiaryDataSection emotions={emotions} foundedData={foundedData} />
       </DiaryDataStyle>
     </>
   )

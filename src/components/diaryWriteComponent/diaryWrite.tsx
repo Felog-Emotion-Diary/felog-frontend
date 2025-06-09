@@ -5,17 +5,27 @@ import MDEditor from "@uiw/react-md-editor";
 import emotions from '../../../emotions.json'
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup'
 
 type TDiary = {
-  title: string | null;
-  content: string | undefined;
-  date?: string;
+  title: string;
+  content: string;
+  date: string;
   emotion: string;
   imgUrl: string;
 }
 
+const schema = yup.object({
+  title: yup.string().required(),
+  content: yup.string().required(),
+  date: yup.string().required(),
+  emotion: yup.string().required(),
+  imgUrl: yup.string().required(),
+})
+
 export default function DiaryWriteComponent() {
-  const [selected, setSelected] = useState<number | null>(null);
+  const [selected, setSelected] = useState<number>(-1);
   const [isImageSelected, setIsImageSelected] = useState<boolean>(false);
   const [imagePath, setImagePath] = useState<string | null>(null);
   const [diaryValue, setDiaryValue] = useState<string | undefined>('');
@@ -23,40 +33,40 @@ export default function DiaryWriteComponent() {
   const [searchParams, setSearchParams] = useSearchParams();
   const dateQurey = searchParams.get('date')?.toString();
 
-  const { register, setValue, handleSubmit, formState: { errors } } = useForm<TDiary>({
+  const { register, setValue, handleSubmit, formState: { errors, isValid } } = useForm<TDiary>({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
     defaultValues: {
       title: dateQurey,
       content: '',
-      date: '',
+      date: dateQurey,
       emotion: '',
       imgUrl: ''
     }
   });
-
-  useEffect(() => {
-    setValue('content', diaryValue);
-    if (selected) {
-      setValue('emotion', emotions[selected - 1].name)
-    }
-  }, [diaryValue, selected, setValue])
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const imagePath = URL.createObjectURL(file);
       setImagePath(imagePath);
-      setValue('imgUrl', imagePath);
+      setValue('imgUrl', imagePath, { shouldValidate: true });
       setIsImageSelected(true);
     }
   }
 
   const emotionCheck = (color: string, i: number) => {
     setSelected(i);
+    setValue('emotion', emotions[i].name, { shouldValidate: true })
     setBackground(color);
   }
 
   const diarySubmit: SubmitHandler<TDiary> = (data) => {
     console.log(data);
+    console.log(selected);
+    console.log(emotions[selected].name);
+    console.log(isValid);
+    console.log(errors);
   }
 
   return (
@@ -66,7 +76,13 @@ export default function DiaryWriteComponent() {
           <input className="diaryTitle" placeholder={dateQurey} {...register('title')} />
           <MDEditor
             value={diaryValue}
-            onChange={setDiaryValue}
+            onChange={(content) => {
+              setDiaryValue(content);
+              setValue('content', content ?? '', {
+                shouldDirty: true,
+                shouldValidate: true
+              })
+            }}
             preview="edit"
             visibleDragbar={false}
             textareaProps={{
@@ -107,7 +123,7 @@ export default function DiaryWriteComponent() {
           <label htmlFor="fileInput">이미지 첨부하기</label>
           <input type="file" id="fileInput" onChange={handleImageChange} />
         </UploadPictureBox>
-        <SubmitButton onClick={handleSubmit(diarySubmit)}>작성하기</SubmitButton>
+        <SubmitButton onClick={handleSubmit(diarySubmit)} aria-disabled={!isValid}>작성하기</SubmitButton>
       </DataSection>
     </>
   )

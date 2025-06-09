@@ -6,6 +6,7 @@ import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
 import React, { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
+import { axiosInstance } from "../../utils/axiosInstance.tsx";
 
 type TSignIn = {
   email: string;
@@ -38,9 +39,12 @@ export default function SignIn() {
     }
   })
   const onLogin: SubmitHandler<TSignIn> = (data) => {
-    console.log(data)
-    //axios : post 추가
-    //endpoint : user/login
+    try {
+      const response = axiosInstance.post('/users', data);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
