@@ -76,7 +76,7 @@ export const DataSection = styled.div`
     display: flex;
     align-items : center;
     gap : 1.5rem;
-    padding : 1.25rem 3rem;
+    padding : 1.25rem 2rem;
     background-color : white;
     border-radius : 1.2rem;
   }
@@ -185,4 +185,9 @@ export const SubmitButton = styled.div`
   padding : 10px 0;
   cursor : pointer;
   box-shadow : 0 3px 3px gray;
+
+  &[aria-disabled='true'] {
+    opacity : 0.5;
+    cursor : not-allowed;
+  }
 `

@@ -48,8 +48,8 @@ export const DiaryDataStyle = styled.div`
     display : flex;
     justify-content : center;
     margin-top : 1.25rem;
-    width : 95%;
-    gap : 0.6rem;
+    width : max-content;
+    gap : 1.2rem;
     padding : 1rem 0;
     border-radius : 1rem;
   }

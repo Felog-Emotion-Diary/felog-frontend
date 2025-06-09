@@ -6,6 +6,7 @@ import MainPage from "../pages/MainPage";
 import Layout from "../components/layout/Layout";
 import DiaryWrite from "../pages/diaryWritePage";
 import EmotionStats from "../pages/EmotionStats";
+import DiaryListPage from "../pages/diaryListPage";
 
 export default function Router() {
   return (
@@ -17,6 +18,7 @@ export default function Router() {
       <Route element={<Layout />}>
         <Route path="/main" element={<MainPage />} />
         <Route path="/emotion-stats" element={<EmotionStats />} />
+        <Route path="/list" element={<DiaryListPage />} />
       </Route>
     </Routes>
   );

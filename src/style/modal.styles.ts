@@ -17,7 +17,7 @@ export const customModalStyle = (): ReactModal.Styles => {
       display: 'grid',
       gridTemplateColumns: '6fr 4fr',
       gridTemplateRows: '1fr',
-      margin: '0 auto',
+      margin: 'auto',
       width: '85%',
       height: '90%',
       backgroundColor: `${background}`

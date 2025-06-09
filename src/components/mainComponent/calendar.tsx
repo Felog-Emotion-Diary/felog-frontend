@@ -32,8 +32,7 @@ function DiaryCalendar() {
   const moveToDiary = (date: Date) => {
     const convertedDate = date.toLocaleDateString()
     const formatDate = format(convertedDate, 'yyyy-MM-dd');
-    // alert(formatDate);
-    navigate(`/diaries/write?date=${formatDate}`);
+    navigate(`/write?date=${formatDate}`);
   }
 
   return (
