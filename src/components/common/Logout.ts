@@ -1,23 +1,14 @@
-import axios from "axios";
+import { axiosInstance } from "../../utils/axiosInstance";
 
 export const handleLogout = async () => {
   const confirmed = window.confirm("로그아웃 하시겠습니까?");
   if (!confirmed) return;
 
-  const token = localStorage.getItem("userToken");
-
   try {
-    await axios.post(
-      "/user/logout",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    await axiosInstance.post("/api/users/logout");
 
     localStorage.removeItem("userToken");
+
     alert("로그아웃 성공!");
     window.location.href = "/login";
   } catch (error) {

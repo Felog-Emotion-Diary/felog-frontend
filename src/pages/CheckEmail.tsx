@@ -1,20 +1,20 @@
 import { Button, FormContainer, FullPage, Input } from "../style/PasswordStyle";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import { axiosInstance } from "../utils/axiosInstance";
 
 function CheckEmail() {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
-
+  //const navigate = useNavigate();
   const handleClick = async () => {
     try {
-      await axios.post("http://localhost:5000/api/users/requestPasswordReset", { email });
+      await axiosInstance.post(`/api/users/reset`, { email });
       alert("비밀번호 재설정 링크가 이메일로 전송되었습니다.");
     } catch (error: unknown) {
       const err = error as AxiosError<{ message: string }>;
       alert(err.response?.data?.message || "에러가 발생했습니다");
-      navigate("/reset-password");
+      //navigate("/reset-password");
     }
   };
 

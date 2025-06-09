@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, FormContainer, FullPage, Input } from "../style/PasswordStyle";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { axiosInstance } from "../utils/axiosInstance";
 
 function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -9,11 +10,10 @@ function ResetPassword() {
   const [errorMessage, setErrorMessage] = useState("");
   const { token } = useParams();
   const navigate = useNavigate();
-
   const isValidPassword = (password: string): boolean => {
     const regex = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).*$/;
     return regex.test(password);
-  }
+  };
 
   const handleSubmit = async () => {
     setErrorMessage("");
@@ -29,10 +29,9 @@ function ResetPassword() {
     }
 
     try {
-      await axios.post(
-        `http://localhost:5000/api/users/resetPassword/${token}`,
-        { newPassword: password }
-      );
+      await axiosInstance.post(`/api/users/reset/${token}`, {
+        newPassword: password,
+      });
       alert("비밀번호가 변경되었습니다.");
       navigate("/sign");
     } catch (error: unknown) {
@@ -60,7 +59,9 @@ function ResetPassword() {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
 
-        {errorMessage && <p style={{ color: "red", marginTop: "0.5rem" }}>{errorMessage}</p>}
+        {errorMessage && (
+          <p style={{ color: "red", marginTop: "0.5rem" }}>{errorMessage}</p>
+        )}
         <Button onClick={handleSubmit}>확인</Button>
       </FormContainer>
     </FullPage>
