@@ -14,7 +14,7 @@ export default function Router() {
       <Route path="/write" element={<DiaryWrite />} />
       <Route path="/sign" element={<SignComponent />} />
       <Route path="/check-email" element={<CheckEmail />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/reset/:token" element={<ResetPassword />} />
       <Route element={<Layout />}>
         <Route path="/main" element={<MainPage />} />
         <Route path="/emotion-stats" element={<EmotionStats />} />

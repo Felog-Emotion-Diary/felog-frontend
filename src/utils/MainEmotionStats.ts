@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import type { DiaryEntry } from "../types/DiaryEntry";
 import emotions from "../../emotions.json";
-import { emotionMap, type EmotionCode } from "../utils/emotionUtils";
+import { emotionMap, emotionMapByCode, type EmotionCode } from "../utils/emotionUtils";
 dayjs.extend(isBetween);
 
 export interface EmotionStat {
@@ -26,15 +26,21 @@ export function MainEmotionStats(entries: DiaryEntry[]): EmotionStat[] {
     emotionCodes.map((emotion) => [emotion, 0])
   ) as Record<EmotionCode, number>;
 
-
   recentEntries.forEach((entry) => {
-  const code = emotionMap[entry.emotion]; 
-  if (code) {
-    counts[code]++;
-  } else {
-    console.warn(`Unrecognized emotion: ${entry.emotion}`);
-  }
-});
+    let code: EmotionCode | undefined;
+
+    if (typeof entry.emotion === "string") {
+      code = emotionMap[entry.emotion]?.code;
+    } else if (typeof entry.emotion === "number") {
+      code = emotionMapByCode[entry.emotion]?.code;
+    }
+
+    if (code !== undefined) {
+      counts[code]++;
+    } else {
+      console.warn(`Unrecognized emotion: ${entry.emotion}`);
+    }
+  });
 
   const stats: EmotionStat[] = emotionCodes.map((emotion) => ({
     emotion,

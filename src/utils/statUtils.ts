@@ -1,5 +1,6 @@
 import type { DiaryEntry } from "../types/DiaryEntry";
 import type { EmotionCode } from "./emotionUtils";
+import { emotionMap } from "./emotionUtils";
 
 export function getLongestDiaryLength(entries: DiaryEntry[]): number {
   if (!entries.length) return 0;
@@ -9,16 +10,20 @@ export function getLongestDiaryLength(entries: DiaryEntry[]): number {
 export function calculateEmotionRatio(entries: DiaryEntry[]) {
   const counts: Record<EmotionCode, number> = {};
   entries.forEach(({ emotion }) => {
-    counts[emotion] = (counts[emotion] ?? 0) + 1;
+    const code = emotionMap[emotion]?.code;
+    if (code !== undefined) {
+      counts[code] = (counts[code] ?? 0) + 1;
+    }
   });
-  const emotionCounts = Object.entries(counts).map(([emotion, count]) => ({
-    emotion: emotion as EmotionCode,
+
+  const emotionCounts = Object.entries(counts).map(([code, count]) => ({
+    emotion: Number(code) as EmotionCode,
     count: count ?? 0,
   }));
   const total = entries.length || 1;
   const mostEmotion = emotionCounts.reduce(
     (max, curr) => (curr.count > max.count ? curr : max),
-    { emotion: "normal" as EmotionCode, count: 0 }
+    { emotion: 32 as EmotionCode, count: 0 }
   );
 
   return {
@@ -29,11 +34,11 @@ export function calculateEmotionRatio(entries: DiaryEntry[]) {
 }
 
 export function calculateEmotionPerWeek(entries: DiaryEntry[]) {
-  const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+  const days = ["일", "월", "화", "수", "목", "금", "토"];
   const result: Record<string, { emotion: EmotionCode; count: number }> = {};
-  days.forEach((day) => (result[day] = { emotion: "normal", count: 0 }));
+  days.forEach((day) => (result[day] = { emotion: 32, count: 0 })); // 32 = 무덤덤
 
-  const grouped: Record<string, Record<EmotionCode, number>> = {};
+  const grouped: Record<string, Record<string, number>> = {};
 
   for (const e of entries) {
     const date = new Date(e.date);
@@ -44,15 +49,18 @@ export function calculateEmotionPerWeek(entries: DiaryEntry[]) {
 
   for (const day of days) {
     const emotionGroup = grouped[day] || {};
-    let maxEmotion: EmotionCode = "normal";
+    let maxEmotionName = "무덤덤";
     let maxCount = 0;
-    for (const [emotion, count] of Object.entries(emotionGroup)) {
+
+    for (const [emotionName, count] of Object.entries(emotionGroup)) {
       if (count > maxCount) {
         maxCount = count;
-        maxEmotion = emotion as EmotionCode;
+        maxEmotionName = emotionName;
       }
     }
-    result[day] = { emotion: maxEmotion, count: maxCount };
+
+    const code = emotionMap[maxEmotionName]?.code ?? 32;
+    result[day] = { emotion: code, count: maxCount };
   }
 
   return result;

@@ -10,21 +10,12 @@ function ResetPassword() {
   const [errorMessage, setErrorMessage] = useState("");
   const { token } = useParams();
   const navigate = useNavigate();
-  const isValidPassword = (password: string): boolean => {
-    const regex = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).*$/;
-    return regex.test(password);
-  };
 
   const handleSubmit = async () => {
     setErrorMessage("");
 
     if (password !== confirmPassword) {
       setErrorMessage("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-
-    if (!isValidPassword(password)) {
-      setErrorMessage("비밀번호는 소문자, 숫자, 특수문자를 포함해야 합니다.");
       return;
     }
 
@@ -42,6 +33,7 @@ function ResetPassword() {
       }
     }
   };
+
   return (
     <FullPage>
       <FormContainer>

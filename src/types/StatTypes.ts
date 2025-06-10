@@ -1,5 +1,7 @@
+import type { EmotionCode } from "../utils/emotionUtils";
+
 export type EmotionPerDay = {
-  emotion: string;
+  emotion: EmotionCode;
   count: number;
 };
 
@@ -19,6 +21,6 @@ export type DiaryCount = {
 };
 
 export type RawEmotionCount = {
-  emotion: string;
+  emotion: EmotionCode;
   count: number;
 };

@@ -12,9 +12,10 @@ import {
 import type { DiaryEntry } from "../types/DiaryEntry";
 import calculateStreak from "../utils/caculateStreak";
 import { MainEmotionStats } from "../utils/MainEmotionStats";
-import Modal from "react-modal";
+//import Modal from "react-modal";
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { axiosInstance } from "../utils/axiosInstance";
+import dayjs from "dayjs";
 
 function MainPage() {
   const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>([]);
@@ -46,14 +47,16 @@ function MainPage() {
   }, []);
 
   const fetchUserNickname = async () => {
-      try {
-    const userRes = await axiosInstance.get("/api/users/userInfo");
-    console.log("유저 응답 데이터:", userRes);
-    setUserNickname(userRes.data.nickname);
-  } catch (err:unknown) {
-    console.error("유저 정보 불러오기 실패:", err.message);
-    console.error("전체 에러 객체:", err); // 더 많은 정보 제공
-  }
+    try {
+      const userRes = await axiosInstance.get("/api/users/userInfo");
+      console.log("유저 응답 데이터:", userRes);
+      setUserNickname(userRes.data.nickname);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error("유저 정보 불러오기 실패:", err.message);
+      }
+      console.error("전체 에러 객체:", err);
+    }
   };
 
   const fetchDiaries = async () => {
@@ -70,9 +73,12 @@ function MainPage() {
       const validEntries = entries.filter(
         (entry) => entry.date && entry.emotion
       );
-      setDiaryEntries(validEntries);
 
-      const dates = validEntries.map((entry) => entry.date);
+      const dates = validEntries.map((entry) =>
+        dayjs(entry.date).format("YYYY-MM-DD")
+      );
+
+      setDiaryEntries(validEntries);
       setStreakCount(calculateStreak(dates));
       setEmotionStats(MainEmotionStats(validEntries));
     } catch (err) {

@@ -30,7 +30,7 @@ const EmotionSummary: React.FC<EmotionSummaryProps> = ({ stats }) => {
           return (
             <EmotionItem key={emotion}>
               <img src={info?.emoji} alt={info?.name} width={60} height={60} />
-              <Percentage $emotion={emotion}>{percentage}%</Percentage>
+              <Percentage $emotion={info?.name ?? "무덤덤"}>{percentage}%</Percentage>
             </EmotionItem>
           );
         })}

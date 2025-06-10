@@ -1,4 +1,4 @@
-//import { MdCheckBoxOutlineBlank } from "react-icons/md";
+import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import {
   BetweenFlexbox,
   Button,
@@ -16,6 +16,8 @@ import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { axiosInstance } from "../../utils/axiosInstance.tsx";
+import { useNavigate } from "react-router-dom";
+import { AuthStore } from "../../store/authStore.ts";
 
 type TSignIn = {
   email: string;
@@ -33,7 +35,10 @@ const schema = yup.object({
 export default function SignIn() {
   const setIsLogin = overlayStore((state) => state.setIsLogin);
   const [isRemember, setIsRemember] = useState(false);
-  const [cookies, setCookies, removeCookies] = useCookies(['rememberId'], { doNotParse: true })
+  const [cookies, setCookies, removeCookies] = useCookies(["rememberId"], {
+    doNotParse: true,
+  });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (cookies.rememberId !== undefined) {
@@ -52,16 +57,21 @@ export default function SignIn() {
     mode: "onBlur",
     resolver: yupResolver(schema),
     defaultValues: {
-      email: '',
-      password: ''
-    }
-  })
-  const onLogin: SubmitHandler<TSignIn> = (data) => {
+      email: "",
+      password: "",
+    },
+  });
+  const onLogin: SubmitHandler<TSignIn> = async (data) => {
     try {
-      const response = axiosInstance.post('/users', data);
+      const response = await axiosInstance.post("/api/users/login", data);
       console.log(response);
+      console.log(response.data.user.token);
+      const token = response.data.user.token;
+      AuthStore.getState().setToken(token);
+      navigate("/main");
     } catch (err) {
       console.log(err);
+      alert("로그인에 실패하였습니다.\n다시 시도해주세요");
     }
   };
 
@@ -75,10 +85,9 @@ export default function SignIn() {
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue("email", e.target.value);
-    if (isRemember) {
-      setCookies("rememberId", e.target.value, { maxAge: 2000 });
-    }
+    const newValue = e.target.value;
+    setValue("email", newValue);
+    setCookies("rememberId", newValue, { maxAge: 2000 });
   };
 
   return (
@@ -113,7 +122,6 @@ export default function SignIn() {
           <PageMove type="button" onClick={() => navigate("/check-email")}>
             비밀번호 찾기
           </PageMove>
-
           <PageMove type="button" onClick={setIsLogin}>
             회원가입
           </PageMove>

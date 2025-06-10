@@ -1,18 +1,13 @@
-import { axiosInstance } from "../../utils/axiosInstance";
+import { AuthStore } from "../../store/authStore";
 
-export const handleLogout = async () => {
+export const handleLogout = () => {
   const confirmed = window.confirm("로그아웃 하시겠습니까?");
   if (!confirmed) return;
 
-  try {
-    await axiosInstance.post("/api/users/logout");
+  AuthStore.getState().setToken(null); 
+  localStorage.removeItem("userToken"); 
 
-    localStorage.removeItem("userToken");
-
-    alert("로그아웃 성공!");
-    window.location.href = "/login";
-  } catch (error) {
-    console.error("로그아웃 실패:", error);
-    alert("로그아웃 중 오류가 발생했습니다.");
-  }
+  alert("로그아웃 성공!");
+  window.location.href = "/sign";
 };
+

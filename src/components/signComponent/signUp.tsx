@@ -14,6 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
 import { axiosInstance } from "../../utils/axiosInstance.tsx";
 import axios from "axios";
 import { AuthStore } from "../../store/authStore.ts";
+import { useNavigate } from "react-router-dom";
 
 interface IInstanceError{
   message: string;
@@ -44,6 +45,7 @@ const schema = yup.object({
 
 export default function SignUp() {
   const setIsLogin = overlayStore((state) => state.setIsLogin);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -68,6 +70,7 @@ export default function SignUp() {
 
       const token = signInResponse.data.token;
       AuthStore.getState().setToken(token);
+      navigate('/main');
     } catch (err) {
       if (axios.isAxiosError(err)) {
         const status = err.response?.status;
