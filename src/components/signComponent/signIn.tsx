@@ -1,14 +1,4 @@
-import { MdCheckBoxOutlineBlank } from "react-icons/md";
-import {
-  BetweenFlexbox,
-  Button,
-  Form,
-  Input,
-  InputFlexbox,
-  PageMove,
-  RowFlexbox,
-  Title,
-} from "../../style/signIn_Up.styles.ts";
+import { BetweenFlexbox, Button, Form, Input, InputFlexbox, PageMove, RowFlexbox, Title } from "../../style/signIn_Up.styles.ts";
 import { overlayStore } from "../../store/signInStore";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
@@ -63,9 +53,7 @@ export default function SignIn() {
   });
   const onLogin: SubmitHandler<TSignIn> = async (data) => {
     try {
-      const response = await axiosInstance.post("/api/users/login", data);
-      console.log(response);
-      console.log(response.data.user.token);
+      const response = await axiosInstance.post('/api/users/login', data);
       const token = response.data.user.token;
       AuthStore.getState().setToken(token);
       navigate("/main");

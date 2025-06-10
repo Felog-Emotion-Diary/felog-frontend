@@ -32,7 +32,7 @@
     "emoji": "/emoji/love.png",
     "tagColor": "#FFCC80",
     "backgroundColor": "#FFF1D9",
-    "code": 16
+    "code": 64
   },
   {
     "name": "무덤덤",
@@ -46,6 +46,6 @@
     "emoji": "/emoji/safe.png",
     "tagColor": "#A5D6A7",
     "backgroundColor": "#F1FAF1",
-    "code": 64
+    "code": 16
   }
 ]

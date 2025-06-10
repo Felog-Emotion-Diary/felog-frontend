@@ -19,3 +19,15 @@ axiosInstance.interceptors.request.use((config) => {
 
   return config;
 });
+
+axiosInstance.interceptors.response.use(
+  response => response,
+  error => {
+    const status = error.response?.status;
+
+    if (status === 401) {
+      alert('로그인이 필요합니다.');
+      window.location.href = '/sign';
+    }
+  }
+)
