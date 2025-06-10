@@ -4,6 +4,7 @@ import "react-calendar/dist/Calendar.css";
 import "./calendarCustom.css";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { ModalStore } from "../../store/ModalStore";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -28,11 +29,15 @@ const emotionColors: Record<string, string> = {
 function DiaryCalendar() {
   const navigate = useNavigate()
   const [value, setValue] = useState<Value>(new Date());
+  const setModalOpen = ModalStore((state) => state.setModalOpen);
+  const setData = ModalStore((state) => state.setData);
 
   const moveToDiary = (date: Date) => {
-    const convertedDate = date.toLocaleDateString()
-    const formatDate = format(convertedDate, 'yyyy-MM-dd');
-    navigate(`/write?date=${formatDate}`);
+    const formattedDate = format(date, 'yyyy-MM-dd');
+    if (diaryData[formattedDate]) {
+    } else {
+      navigate(`/write?date=${formattedDate}`);
+    }
   }
 
   return (

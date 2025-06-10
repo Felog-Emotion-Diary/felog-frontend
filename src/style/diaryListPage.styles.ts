@@ -16,7 +16,7 @@ export const Header = styled.div`
   gap : 1rem;
   height : max-content;
   
-  form {
+  .contentSearch {
     grid-area : a;
     display : flex;
     gap : 1rem;
@@ -56,6 +56,11 @@ export const Header = styled.div`
     background-color : #4A4947;
     border-radius : 0.3rem;
   }
+
+  .dateSearch{
+    height : 100%;
+    cursor : pointer;
+  }
 `
 
 export const DateContainer = styled.div`
@@ -88,11 +93,13 @@ export const TagSelect = styled.div`
   }
 `
 
-export const EmotionButton = styled.button<{ $background: string }>`
+export const EmotionButton = styled.button<{ $background: string, $selected: boolean }>`
   background-color : ${(props) => props.$background};
   border : none;
   font-size : 1rem;
   font-weight : bold;
   padding : 0.5rem 1.5rem;
   border-radius : 0.5rem;
+  opacity : ${({ $selected }) => ($selected ? '100%' : '50%')};
+  transition : opacity 0.3s ease-in-out;
 `

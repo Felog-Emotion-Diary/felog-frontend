@@ -1,37 +1,57 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $backgroundColor: string }>`
   display : flex;
   flex-direction : column;
   width : 100%;
   height : 15rem;
-  background-color : white;
+  background-color : ${(props) => props.$backgroundColor};
   border-radius : 1rem;
   align-items : center;
+  box-shadow : 0 3px 5px 0 lightgray;
+  transition: box-shadow 0.5s ease-in-out;
+  cursor : pointer;
+  
+  &:hover {
+    box-shadow: 0 3px 8px 0 gray;
+  }
 
   .imageBox {
-    border : 1px solid black;
     height : 80%;
     width : 100%;
-    border-radius : 1rem;
+    border-top-left-radius : 1rem;
+    border-top-right-radius : 1rem;
+    background : url(/defaultImage.jpg);
+    background-size: cover;
   }
 
   .contentBox {
-    width : 80%;
+    width : 85%;
     height : 20%;
-    padding : 0.5rem 1.5rem;
+    padding : 0.5rem 0.5rem;
     display : flex;
     justify-content : space-between;
 
     .titleBox {
+      height : 100%;
       display : flex;
       align-items : start;
       font-size : 1.5rem;
       font-weight : bold;
+      
+      .title {
+        display : inline-block;
+        white-space : nowrap;
+        overflow: hidden;
+        text-overflow : ellipsis;
+        max-width : 12rem;
+      }
     }
 
-    .contentBox {
-
+    .dateBox {
+      height : 100%;
+      display : flex;
+      align-items : end;
     }
   }
 `

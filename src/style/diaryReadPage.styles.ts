@@ -137,4 +137,5 @@ export const MarkdownPreviewStyle: React.CSSProperties = {
   overflowX: 'hidden',
   padding: '1rem 1.75rem',
   backgroundColor: 'transparent',
+  fontSize: '1.5rem',
 }
