@@ -38,6 +38,11 @@ export const HeaderWrapper = styled.header`
       }
     }
   }
+  .menu .disabled {
+    pointer-events: none;
+    color: gray;
+    cursor: not-allowed;
+  }
 
   .icons {
     display: flex;
