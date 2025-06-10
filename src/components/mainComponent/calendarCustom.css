@@ -1,0 +1,164 @@
+.react-calendar {
+  font-size: 1.2rem;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 15px;
+  border: none;
+  padding: 20px 20px;
+}
+
+.react-calendar__navigation__label {
+  pointer-events: none;
+  cursor: default;
+}
+
+.react-calendar__navigation button {
+  min-width: 44px;
+  font-size: 1.4rem;
+  background: none;
+  margin-top: 10px;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  padding: 1rem 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.react-calendar__tile {
+  padding: 2.3rem 0.5rem;
+  margin: 0.2rem;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+}
+
+.react-calendar__tile abbr {
+  position: relative;
+  z-index: 2;
+  font-size: large;
+}
+
+.react-calendar__month-view__days__day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-calendar abbr {
+  text-decoration: none;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background-color: inherit;
+  outline: none;
+  box-shadow: none;
+}
+
+/* 오늘 날짜 */
+.react-calendar__tile--now {
+  position: relative;
+  background: none !important;
+  color: inherit;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.react-calendar__tile--now::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #4a4947;
+}
+
+.react-calendar__tile--active {
+  background-color: inherit;
+  color: inherit;
+  position: relative;
+  box-shadow: none;
+}
+
+.react-calendar__tile--active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  border: 2px solid #4a4947;
+  border-radius: 50%;
+  pointer-events: none;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+/* 감정 배경 원 공통 스타일 */
+.emotion-happy,
+.emotion-sad,
+.emotion-angry,
+.emotion-anxious,
+.emotion-calm,
+.emotion-neutral,
+.emotion-love {
+  position: relative;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.emotion-happy::before {
+  background-color: #fff2c1;
+}
+.emotion-sad::before {
+  background-color: #cadbff;
+}
+.emotion-angry::before {
+  background-color: #ffd3d3;
+}
+.emotion-anxious::before {
+  background-color: #cbcbff;
+}
+.emotion-calm::before {
+  background-color: #e3f4e4;
+}
+.emotion-neutral::before {
+  background-color: #b0bec5;
+}
+.emotion-love::before {
+  background-color: #ffdfa9;
+}
+
+.emotion-happy::before,
+.emotion-sad::before,
+.emotion-angry::before,
+.emotion-anxious::before,
+.emotion-calm::before,
+.emotion-neutral::before,
+.emotion-love::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 0;
+}

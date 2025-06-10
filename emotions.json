@@ -1,0 +1,51 @@
+[
+  {
+    "name": "기쁨",
+    "emoji": "/emoji/happy.png",
+    "tagColor": "#FFE082",
+    "backgroundColor": "#FFFBED",
+    "code": 1
+  },
+  {
+    "name": "슬픔",
+    "emoji": "/emoji/sad.png",
+    "tagColor": "#90CAF9",
+    "backgroundColor": "#E1E7FF",
+    "code": 2
+  },
+  {
+    "name": "분노",
+    "emoji": "/emoji/angry.png",
+    "tagColor": "#EF9A9A",
+    "backgroundColor": "#FFEAEA",
+    "code": 4
+  },
+  {
+    "name": "불안",
+    "emoji": "/emoji/anxious.png",
+    "tagColor": "#9FA8DA",
+    "backgroundColor": "#E1E1FF",
+    "code": 8
+  },
+  {
+    "name": "설렘",
+    "emoji": "/emoji/love.png",
+    "tagColor": "#FFCC80",
+    "backgroundColor": "#FFF1D9",
+    "code": 16
+  },
+  {
+    "name": "무덤덤",
+    "emoji": "/emoji/normal.png",
+    "tagColor": "#78909C",
+    "backgroundColor": "#D1D8DC",
+    "code": 32
+  },
+  {
+    "name": "편안함",
+    "emoji": "/emoji/safe.png",
+    "tagColor": "#A5D6A7",
+    "backgroundColor": "#F1FAF1",
+    "code": 64
+  }
+]
