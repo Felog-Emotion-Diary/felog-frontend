@@ -8,18 +8,18 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { emotionColorMap, type Emotion } from "../../utils/emotionUtils";
+import { emotionColorMap, type EmotionCode } from "../../utils/emotionUtils";
 import CustomTooltip from "./CustomTooltip";
 
 interface WeekEmotionData {
-  [key: string]: { emotion: Emotion; count: number };
+  [key: string]: { emotion: EmotionCode; count: number };
 }
 
 interface Props {
   data: WeekEmotionData;
 }
 
-const dayKoMap: Record<string, string> = {
+export const dayKoMap: Record<string, string> = {
   mon: "월",
   tue: "화",
   wed: "수",
@@ -30,10 +30,11 @@ const dayKoMap: Record<string, string> = {
 };
 
 function WeekEmotionChart({ data }: Props) {
+  
   const chartData = Object.entries(data).map(([day, value]) => ({
     day,
     ...value,
-  }));
+  })) as { day: string; emotion: EmotionCode; count: number }[];
 
   return (
     <ResponsiveContainer width="100%" height={200}>
@@ -43,8 +44,8 @@ function WeekEmotionChart({ data }: Props) {
           dataKey="day"
           tickFormatter={(value) => dayKoMap[value] || value}
         />
-        <YAxis />
-        <Tooltip content={CustomTooltip}/>
+        <YAxis domain={[0, 30]} ticks={[0, 10, 20, 30]} allowDecimals={false} />
+        <Tooltip content={CustomTooltip} cursor={false} />
         <Bar dataKey="count" barSize={40}>
           {chartData.map((entry, index) => (
             <Cell

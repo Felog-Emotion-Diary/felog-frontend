@@ -1,13 +1,9 @@
-export type Emotion =
-  | "happy"
-  | "sad"
-  | "angry"
-  | "anxious"
-  | "calm"
-  | "neutral"
-  | "love";
+import type { EmotionCode, EmotionName } from "../utils/emotionUtils";
 
 export interface DiaryEntry {
-    date : string;
-    emotion : Emotion;
+  title: string;
+  content: string;
+  date: string;
+  emotion: EmotionName | EmotionCode; 
+  imgUrl?: string;
 }

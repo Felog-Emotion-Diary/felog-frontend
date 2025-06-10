@@ -41,18 +41,38 @@ export const HeaderWrapper = styled.header`
 
   .icons {
     display: flex;
-    gap: 16px;
+    align-items: center;
+    gap: 24px;
+  }
 
-    button {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #333;
+  .logout button {
+    font-size: 16px;
+    padding: 6px 12px;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
 
-      &:hover {
-        color: #d8d2c2;
-      }
-    }
+  .logout button:hover {
+    color: #666;
+  }
+
+  .icon-group {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 7px;
+  }
+
+  .icon-group button {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  .icon-group button:hover {
+    color: #666;
   }
 `;

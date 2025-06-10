@@ -1,8 +1,12 @@
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from "recharts";
-import { emotionColorMap, type Emotion } from "../../utils/emotionUtils";
+import {
+  emotionColorMap,
+  emotionMapByCode,
+  type EmotionCode,
+} from "../../utils/emotionUtils";
 
 interface PieData {
-  emotion: string;
+  emotion: EmotionCode;
   count: number;
 }
 
@@ -44,13 +48,18 @@ function renderCustomizedLabel({
 }
 
 function EmotionPieChart({ data }: Props) {
+  const chartData = data.map((item) => ({
+    ...item,
+    name: emotionMapByCode[item.emotion]?.name ?? `감정 ${item.emotion}`,
+  }));
+
   return (
     <ResponsiveContainer width="100%" height={350}>
       <PieChart>
         <Pie
-          data={data}
+          data={chartData}
           dataKey="count"
-          nameKey="emotion"
+          nameKey="name"
           cx="50%"
           cy="45%"
           outerRadius={100}
@@ -61,7 +70,7 @@ function EmotionPieChart({ data }: Props) {
           {data.map((entry, index) => (
             <Cell
               key={`cell-${index}`}
-              fill={emotionColorMap[entry.emotion as Emotion] || "#ddd"}
+              fill={emotionColorMap[entry.emotion] || "#ddd"}
             />
           ))}
         </Pie>
@@ -74,6 +83,10 @@ function EmotionPieChart({ data }: Props) {
             display: "grid",
             rowGap: 8,
             justifyContent: "center",
+          }}
+          formatter={(value) => {
+            const emotion = emotionMapByCode[Number(value)];
+            return emotion?.name ?? value;
           }}
         />
       </PieChart>

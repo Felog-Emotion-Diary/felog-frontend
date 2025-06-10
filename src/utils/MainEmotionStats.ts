@@ -1,16 +1,17 @@
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
-import type { DiaryEntry, Emotion } from "../types/DiaryEntry";
-import { ALL_EMOTIONS } from "./emotionUtils";
+import type { DiaryEntry } from "../types/DiaryEntry";
+import emotions from "../../emotions.json";
+import { emotionMap, emotionMapByCode, type EmotionCode } from "../utils/emotionUtils";
 dayjs.extend(isBetween);
 
 export interface EmotionStat {
-  emotion: Emotion;
+  emotion: EmotionCode;
   percentage: number;
 }
 
 export function MainEmotionStats(entries: DiaryEntry[]): EmotionStat[] {
-  const today = dayjs("2025-05-10");
+  const today = dayjs("");
   const weekAgo = today.subtract(6, "day");
 
   const recentEntries = entries.filter((entry) =>
@@ -19,15 +20,29 @@ export function MainEmotionStats(entries: DiaryEntry[]): EmotionStat[] {
 
   const total = recentEntries.length;
 
-  const counts: Record<Emotion, number> = Object.fromEntries(
-    ALL_EMOTIONS.map((emotion) => [emotion, 0])
-  ) as Record<Emotion, number>;
+  const emotionCodes = emotions.map((e) => e.code as EmotionCode);
+
+  const counts: Record<EmotionCode, number> = Object.fromEntries(
+    emotionCodes.map((emotion) => [emotion, 0])
+  ) as Record<EmotionCode, number>;
 
   recentEntries.forEach((entry) => {
-    counts[entry.emotion]++;
+    let code: EmotionCode | undefined;
+
+    if (typeof entry.emotion === "string") {
+      code = emotionMap[entry.emotion]?.code;
+    } else if (typeof entry.emotion === "number") {
+      code = emotionMapByCode[entry.emotion]?.code;
+    }
+
+    if (code !== undefined) {
+      counts[code]++;
+    } else {
+      console.warn(`Unrecognized emotion: ${entry.emotion}`);
+    }
   });
 
-  const stats: EmotionStat[] = ALL_EMOTIONS.map((emotion) => ({
+  const stats: EmotionStat[] = emotionCodes.map((emotion) => ({
     emotion,
     percentage: total === 0 ? 0 : Math.round((counts[emotion] / total) * 100),
   }));

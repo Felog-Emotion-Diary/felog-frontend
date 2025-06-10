@@ -38,6 +38,12 @@ export const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
+export const StatCardNumberWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
 export const ChartBox = styled.div`
   grid-row: span 2;
   background-color: white;
@@ -57,12 +63,13 @@ export const BottomWrapper = styled.div`
 
 export const ChartCard = styled.div`
   background-color: white;
-  padding: 10px 25px;
+  padding: 10px 15px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 `;
 
 export const ChartCardTitle = styled.h2`
+  padding: 10px;
   font-size: 20px;
   font-weight: 600;
   color: #333;
