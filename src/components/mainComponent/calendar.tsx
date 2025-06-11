@@ -25,6 +25,7 @@ function DiaryCalendar({ entries }: { entries: DiaryEntry[] }) {
   const navigate = useNavigate();
   const [value, setValue] = useState<Value>(new Date());
   const [diaryData, setDiaryData] = useState<Record<string, string>>({});
+  const setModalOpen = ModalStore((state) => state.setModalOpen);
 
   useEffect(() => {
     const mapped: Record<string, string> = {};
@@ -53,6 +54,7 @@ function DiaryCalendar({ entries }: { entries: DiaryEntry[] }) {
     const formattedDate = format(date, "yyyy-MM-dd");
     if (diaryData[formattedDate]) {
       navigate(`/main?date=${formattedDate}`);
+      setModalOpen();
     } else {
       navigate(`/write?date=${formattedDate}`);
     }

@@ -69,13 +69,24 @@ export default function DiaryWriteComponent() {
     console.log(fetchedData)
   }, [])
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const imagePath = URL.createObjectURL(file);
       setImagePath(imagePath);
       setValue("img", imagePath, { shouldValidate: true });
       setIsImageSelected(true);
+
+      try {
+        const formData = new FormData();
+        formData.append('img', file);
+
+        const imgRes = await axiosInstance.post(`/api/upload`, formData);
+        console.log(imgRes);
+      } catch (error) {
+        console.log(error);
+      }
+
     }
   };
 

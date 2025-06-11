@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import { ModalStore } from "../../store/ModalStore";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { axiosInstance } from "../../utils/axiosInstance";
 
 function RandomDiaryTab() {
@@ -9,15 +8,9 @@ function RandomDiaryTab() {
   const navigate = useNavigate()
 
   const handleClick = async () => {
-    try {
-      const response = await axiosInstance.get(`/api/diaries/getDiaryByDate?date=2025-06-09`);
-      console.log(response.data)
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log(error.response?.status, error.message);
-      }
-    }
-    navigate(`/main?date=2025-06-09`);
+    const response = await axiosInstance.get('/api/diaries/random');
+    const randomDate = response.data
+    navigate(`/main?date=${randomDate.randomDate}`);
     setModalOpen()
   }
 

@@ -63,9 +63,8 @@ export default function SignUp() {
       console.log('로그인 성공')
       console.log(signInResponse);
 
-      const token = signInResponse.data.token;
+      const token = signInResponse.data.user.token;
       AuthStore.getState().setToken(token);
-
       navigate('/main')
     } catch (err) {
       if (axios.isAxiosError(err)) {
