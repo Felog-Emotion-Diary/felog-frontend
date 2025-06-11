@@ -21,7 +21,7 @@ export const DiaryCard = ({ post }: DiaryCardProps) => {
   }
 
   return (
-    <Container $backgroundColor={emotionInfo.backgroundColor} onClick={openModalHandle}>
+    <Container $backgroundColor={emotionInfo.backgroundColor} $imageUrl={post.img} onClick={openModalHandle}>
       <div className="imageBox">
       </div>
       <div className="contentBox">

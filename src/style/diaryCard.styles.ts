@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div<{ $backgroundColor: string }>`
+export const Container = styled.div<{ $backgroundColor: string, $imageUrl: string }>`
   display : flex;
   flex-direction : column;
   width : 100%;
@@ -21,7 +21,7 @@ export const Container = styled.div<{ $backgroundColor: string }>`
     width : 100%;
     border-top-left-radius : 1rem;
     border-top-right-radius : 1rem;
-    background : url(/defaultImage.jpg);
+    background : url(${(props) => props.$imageUrl});
     background-size: cover;
   }
 

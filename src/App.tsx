@@ -5,17 +5,14 @@ import { ModalStore } from './store/ModalStore';
 import DiaryRead from './pages/diaryReadPage';
 import { customModalStyle } from './style/modal.styles';
 import { IoIosClose } from "react-icons/io";
-import { useNavigate } from 'react-router-dom';
 
 ReactModal.setAppElement('#root');
 
 function App() {
   const isOpen = ModalStore((state) => state.isOpen);
   const setModalClose = ModalStore((state) => state.setModalClose)
-  const navigate = useNavigate()
   const handleClick = () => {
     setModalClose();
-    navigate('/main');
   }
   return (
     <>
