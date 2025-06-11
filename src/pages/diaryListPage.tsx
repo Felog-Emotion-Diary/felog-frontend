@@ -60,10 +60,16 @@ export default function DiaryListPage() {
   }
 
   const tagSelectHandle = (value: number) => {
-    setSearchContent('')
-    setSeleted(value);
-    const filteredData = data.filter((post) => post.emotion === value);
-    setTempData(filteredData);
+    if (value === selected) {
+      setSeleted(null);
+      setTempData(data)
+    } else {
+      setSearchContent('')
+      setSeleted(value);
+      const filteredData = data.filter((post) => post.emotion === value);
+      setTempData(filteredData);
+
+    }
   }
 
   return (
