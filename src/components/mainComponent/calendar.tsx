@@ -4,9 +4,10 @@ import "react-calendar/dist/Calendar.css";
 import "./calendarCustom.css";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
-import { ModalStore } from "../../store/ModalStore";
 import type { DiaryEntry } from "../../types/DiaryEntry";
 import { emotionMapByCode } from "../../utils/emotionUtils";
+import { ModalStore } from "../../store/ModalStore";
+import { useDiaryStore } from "../../store/DiaryStore";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -26,15 +27,22 @@ function DiaryCalendar({ entries }: { entries: DiaryEntry[] }) {
   const [value, setValue] = useState<Value>(new Date());
   const [diaryData, setDiaryData] = useState<Record<string, string>>({});
   const setModalOpen = ModalStore((state) => state.setModalOpen);
+  const setHasTodayDiary = useDiaryStore((state) => state.setHasTodayDiary);
+
+  useEffect(() => {
+    const todayStr = format(new Date(), "yyyy-MM-dd");
+    const hasToday = entries.some((entry) =>
+      format(new Date(entry.date), "yyyy-MM-dd") === todayStr
+    );
+    setHasTodayDiary(hasToday);
+  }, [entries]);
 
   useEffect(() => {
     const mapped: Record<string, string> = {};
     entries.forEach(({ date, emotion }) => {
       const emotionName =
         typeof emotion === "number" ? emotionMapByCode[emotion]?.name : emotion;
-
       const formattedDate = format(new Date(date), "yyyy-MM-dd");
-
       if (date && emotionName && emotionColors[emotionName]) {
         mapped[formattedDate] = emotionName;
       } else {
@@ -47,7 +55,6 @@ function DiaryCalendar({ entries }: { entries: DiaryEntry[] }) {
   const moveToDiary = (date: Date) => {
     const today = new Date();
     const selectedDate = new Date(format(date, "yyyy-MM-dd"));
-
     if (selectedDate > today) {
       return;
     }

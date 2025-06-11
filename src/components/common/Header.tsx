@@ -4,6 +4,7 @@ import { MdLightMode } from "react-icons/md";
 import { HeaderWrapper } from "../../style/HeaderStyle";
 import logo from "../../assets/Logo.png";
 import { handleLogout } from "./Logout";
+import { useDiaryStore } from "../../store/DiaryStore";
 
 function Header() {
   const date = new Date();
@@ -12,6 +13,7 @@ function Header() {
     (date.getMonth() + 1)
   ).slice(-2)}-${("0" + date.getDate()).slice(-2)}`;
   const location = useLocation();
+  const hasTodayDiary = useDiaryStore((state) => state.hasTodayDiary);
 
   return (
     <HeaderWrapper>
@@ -25,10 +27,20 @@ function Header() {
         <nav className="menu">
           <Link
             to={`/write?date=${todayString}`}
-            className={location.pathname === "/write" ? "active" : ""}
+            className={
+              location.pathname === "/write"
+                ? "active"
+                : hasTodayDiary
+                ? "disabled"
+                : ""
+            }
+            onClick={(e) => {
+              if (hasTodayDiary) e.preventDefault();
+            }}
           >
             일기작성
           </Link>
+
           <Link
             to="/list"
             className={location.pathname === "/list" ? "active" : ""}
