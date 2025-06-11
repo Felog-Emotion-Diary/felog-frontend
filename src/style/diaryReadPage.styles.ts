@@ -69,6 +69,7 @@ export const DiaryDataStyle = styled.div`
       border-radius : 1rem;
       width : 100%;
       height : 100%;
+      object-fit: cover;
     }
   }
 
