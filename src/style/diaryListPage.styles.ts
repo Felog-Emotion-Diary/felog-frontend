@@ -6,6 +6,7 @@ export const Container = styled.div`
   width : 80%;
   margin : 0 auto;
   margin-top : 3rem;
+  margin-bottom : 8rem;
 `
 
 export const Header = styled.div`
@@ -34,6 +35,7 @@ export const Header = styled.div`
     background-color : white;
     text-indent : 0.5rem;
     border : 1px solid gray;
+    cursor : pointer;
   }
 
   .searchBar {
@@ -55,6 +57,7 @@ export const Header = styled.div`
     color : white;
     background-color : #4A4947;
     border-radius : 0.3rem;
+    cursor : pointer;
   }
 
   .dateSearch{
@@ -100,6 +103,7 @@ export const EmotionButton = styled.button<{ $background: string, $selected: boo
   font-weight : bold;
   padding : 0.5rem 1.5rem;
   border-radius : 0.5rem;
+  cursor : pointer;
   opacity : ${({ $selected }) => ($selected ? '100%' : '50%')};
   transition : opacity 0.3s ease-in-out;
 `

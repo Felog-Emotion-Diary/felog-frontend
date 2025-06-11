@@ -12,7 +12,6 @@ import {
 import type { DiaryEntry } from "../types/DiaryEntry";
 import calculateStreak from "../utils/caculateStreak";
 import { MainEmotionStats } from "../utils/MainEmotionStats";
-//import Modal from "react-modal";
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { axiosInstance } from "../utils/axiosInstance";
 import dayjs from "dayjs";
@@ -22,24 +21,6 @@ function MainPage() {
   const [streakCount, setStreakCount] = useState(0);
   const [emotionStats, setEmotionStats] = useState(MainEmotionStats([]));
   const [userNickname, setUserNickname] = useState("");
-
-  /* 로컬 스토리지 확인용 */
-  // const userNickname = "지은";
-  // useEffect(() => {
-  //   const raw = localStorage.getItem("diaries");
-  //   if (raw) {
-  //     const parsed: DiaryEntry[] = JSON.parse(raw);
-  //     const validEntries = parsed.filter((entry) => entry.date && entry.emotion);
-
-  //     setDiaryEntries(validEntries);
-
-  //     const dates = validEntries.map((entry) => entry.date);
-  //     setStreakCount(calculateStreak(dates));
-  //     setEmotionStats(MainEmotionStats(validEntries));
-  //   }
-  // }, []);
-
-  /* 백엔드 연동 로직 */
 
   useEffect(() => {
     fetchUserNickname();

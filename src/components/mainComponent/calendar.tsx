@@ -30,12 +30,12 @@ function DiaryCalendar({ entries }: { entries: DiaryEntry[] }) {
   const setHasTodayDiary = useDiaryStore((state) => state.setHasTodayDiary);
 
   useEffect(() => {
-  const todayStr = format(new Date(), "yyyy-MM-dd");
-  const hasToday = entries.some((entry) =>
-    format(new Date(entry.date), "yyyy-MM-dd") === todayStr
-  );
-  setHasTodayDiary(hasToday);
-}, [entries]);
+    const todayStr = format(new Date(), "yyyy-MM-dd");
+    const hasToday = entries.some((entry) =>
+      format(new Date(entry.date), "yyyy-MM-dd") === todayStr
+    );
+    setHasTodayDiary(hasToday);
+  }, [entries]);
 
   useEffect(() => {
     const mapped: Record<string, string> = {};
