@@ -55,6 +55,7 @@ export default function DiaryWriteComponent() {
   const updateValues = () => {
     if (fetchedData) {
       setIsImageSelected(true);
+      setImagePath(fetchedData.img);
       setSelected(fetchedData.emotion);
       setDiaryValue(fetchedData.content);
       setValue('title', fetchedData?.title);
@@ -66,7 +67,6 @@ export default function DiaryWriteComponent() {
 
   useEffect(() => {
     updateValues();
-    console.log(fetchedData)
   }, [])
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,10 +79,11 @@ export default function DiaryWriteComponent() {
 
       try {
         const formData = new FormData();
-        formData.append('img', file);
+        formData.append('image', file);
 
-        const imgRes = await axiosInstance.post(`/api/upload`, formData);
-        console.log(imgRes);
+        const imgRes = await axiosInstance.post(`/api/upload`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        const realImageData = imgRes.data.url;
+        setValue('img', realImageData);
       } catch (error) {
         console.log(error);
       }
